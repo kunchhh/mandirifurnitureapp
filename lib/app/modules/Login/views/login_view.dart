@@ -19,7 +19,7 @@ class LoginView extends GetView<LoginController> {
             Container(
               margin: EdgeInsets.only(left: 30.0, top: 130.0),
               child: Text(
-                "Welcome!",
+                "Welcome \nFellas!",
                 style: TextStyle(
                     fontSize: 48,
                     fontWeight: FontWeight.bold,
