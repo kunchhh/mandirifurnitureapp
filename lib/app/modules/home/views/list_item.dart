@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 class CustomListItem extends StatelessWidget {
   final String text;
   final String imagePath;
+  final VoidCallback? onTap;
 
-  CustomListItem({required this.text, required this.imagePath});
+  CustomListItem({required this.text, required this.imagePath, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Column(
         children: [
           Card(

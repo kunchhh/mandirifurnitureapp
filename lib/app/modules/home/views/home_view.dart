@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mandirifurnitureapp/app/modules/catalog/views/catalog_view.dart';
 import 'package:mandirifurnitureapp/app/modules/home/views/list_item.dart';
 import '../controllers/home_controller.dart';
 
@@ -176,26 +177,41 @@ class HomeView extends GetView<HomeController> {
                     switch (index) {
                       case 0:
                         return CustomListItem(
+                          onTap: () {
+                            Get.to(() => CatalogView());
+                          },
                           text: 'Bedroom',
                           imagePath: 'assets/content/bedroomcat.png',
                         );
                       case 1:
                         return CustomListItem(
+                           onTap: () {
+                            Get.to(() => CatalogView());
+                          },
                           text: 'Bathroom',
                           imagePath: 'assets/content/bathroomcat.png',
                         );
                       case 2:
                         return CustomListItem(
+                           onTap: () {
+                            Get.to(() => CatalogView());
+                          },
                           text: 'Kitchen',
                           imagePath: 'assets/content/kitchencat.png',
                         );
                       case 3:
                         return CustomListItem(
+                           onTap: () {
+                            Get.to(() => CatalogView());
+                          },
                           text: 'Living Room',
                           imagePath: 'assets/content/livingroomcat.png',
                         );
                       case 4:
                         return CustomListItem(
+                           onTap: () {
+                            Get.to(() => CatalogView());
+                          },
                           text: 'Dining Room',
                           imagePath: 'assets/content/diningroomcat.png',
                         );

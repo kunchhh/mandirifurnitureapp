@@ -4,6 +4,7 @@ import 'app/widgets/SplashScreen.dart';
 import 'app/routes/app_pages.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
