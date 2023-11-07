@@ -7,6 +7,8 @@ import '../controllers/product_detail_controller.dart';
 
 class ProductDetailView extends GetView<ProductDetailController> {
   const ProductDetailView({Key? key}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -42,7 +44,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                     color: Colors.transparent,
                     elevation: 0,
                     child: Container(
-                      height: 400,
+                      height: 450,
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               fit: BoxFit.fill,

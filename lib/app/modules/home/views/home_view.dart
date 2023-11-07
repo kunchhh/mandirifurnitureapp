@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/catalog/views/catalog_view.dart';
+import 'package:mandirifurnitureapp/app/modules/categories/views/categories_view.dart';
 import 'package:mandirifurnitureapp/app/modules/home/views/list_item.dart';
 import '../controllers/home_controller.dart';
 
@@ -62,39 +63,13 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 20.0,
               ),
+
               // ListView Horizontal
               Container(
-                height: 110.0, // Sesuaikan tinggi ListView
+                height: 110.0, 
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    // Container(
-                    //   width: 100.0,
-                    //   margin: EdgeInsets.all(5.0),
-                    //   child: Stack(
-                    //     children: [
-                    //       ClipRRect(
-                    //         borderRadius: BorderRadius.circular(15.0),
-                    //         child: Image.asset(
-                    //           'assets/content/best.png',
-                    //           fit: BoxFit.cover,
-                    //         ),
-                    //       ),
-                    //       Center(
-                    //         child: Text(
-                    //           'Teks di Dalam Gambar',
-                    //           style: TextStyle(
-                    //             color: Colors
-                    //                 .white, // Sesuaikan warna teks sesuai kebutuhan
-                    //             fontSize:
-                    //                 12.0, // Sesuaikan ukuran teks sesuai kebutuhan
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-
                     Container(
                       width: 100.0,
                       margin: EdgeInsets.all(5.0),
@@ -109,16 +84,16 @@ class HomeView extends GetView<HomeController> {
                           ),
                           Positioned(
                             bottom:
-                                10.0, // Sesuaikan posisi teks sesuai kebutuhan
-                            left: 7.0, // Sesuaikan posisi teks sesuai kebutuhan
+                                10.0, 
+                            left: 7.0,
                             child: Text(
                               'Kitchen',
                               style: TextStyle(
                                   color: Colors
-                                      .white, // Ganti warna teks sesuai kebutuhan
+                                      .white, 
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.bold
-                                  // Sesuaikan ukuran teks sesuai kebutuhan
+                                  
                                   ),
                             ),
                           ),
@@ -152,6 +127,10 @@ class HomeView extends GetView<HomeController> {
                   ],
                 ),
               ),
+
+              // listview horizontal end
+
+
               SizedBox(
                 height: 20.0,
               ),
@@ -178,7 +157,7 @@ class HomeView extends GetView<HomeController> {
                       case 0:
                         return CustomListItem(
                           onTap: () {
-                            Get.to(() => CatalogView());
+                            Get.to(() => CategoriesView());
                           },
                           text: 'Bedroom',
                           imagePath: 'assets/content/bedroomcat.png',
@@ -186,7 +165,7 @@ class HomeView extends GetView<HomeController> {
                       case 1:
                         return CustomListItem(
                            onTap: () {
-                            Get.to(() => CatalogView());
+                            Get.to(() => CategoriesView());
                           },
                           text: 'Bathroom',
                           imagePath: 'assets/content/bathroomcat.png',
@@ -194,7 +173,7 @@ class HomeView extends GetView<HomeController> {
                       case 2:
                         return CustomListItem(
                            onTap: () {
-                            Get.to(() => CatalogView());
+                            Get.to(() => CategoriesView());
                           },
                           text: 'Kitchen',
                           imagePath: 'assets/content/kitchencat.png',
@@ -202,7 +181,7 @@ class HomeView extends GetView<HomeController> {
                       case 3:
                         return CustomListItem(
                            onTap: () {
-                            Get.to(() => CatalogView());
+                            Get.to(() => CategoriesView());
                           },
                           text: 'Living Room',
                           imagePath: 'assets/content/livingroomcat.png',
@@ -210,7 +189,7 @@ class HomeView extends GetView<HomeController> {
                       case 4:
                         return CustomListItem(
                            onTap: () {
-                            Get.to(() => CatalogView());
+                            Get.to(() => CategoriesView());
                           },
                           text: 'Dining Room',
                           imagePath: 'assets/content/diningroomcat.png',
@@ -226,6 +205,7 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ),
+     /* Navbar */
       bottomNavigationBar: Padding(
           padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
           child: Container(
@@ -251,7 +231,7 @@ class HomeView extends GetView<HomeController> {
                   IconButton(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.home_outlined,
+                      Icons.home_rounded,
                       color: Colors.black,
                       size: 32,
                     ),
@@ -284,6 +264,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           )),
+      /* Navbar end */
     );
   }
 }

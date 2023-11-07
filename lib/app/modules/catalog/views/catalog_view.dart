@@ -47,6 +47,7 @@ class CatalogView extends GetView<CatalogController> {
                 ),
           ),         
         ),
+        /* Search Form End */
       ),
 
       
@@ -323,6 +324,7 @@ class CatalogView extends GetView<CatalogController> {
               ),
             ),
           )),
+    /* Navbar end */
     );
   }
 }
