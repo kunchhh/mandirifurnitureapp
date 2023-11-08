@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
 
 import '../../home/views/home_view.dart';
 import '../controllers/bag_controller.dart';
@@ -396,9 +397,11 @@ class BagView extends GetView<BagController> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => MyAccountView());
+                          },
                           icon: Icon(
-                            Icons.person_2_outlined,
+                            Icons.person_outlined,
                             color: Colors.white,
                             size: 32,
                           ),

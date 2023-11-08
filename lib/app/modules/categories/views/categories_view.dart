@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mandirifurnitureapp/app/modules/bag/views/bag_view.dart';
 import 'package:mandirifurnitureapp/app/modules/catalog/views/catalog_view.dart';
+import 'package:mandirifurnitureapp/app/modules/home/views/home_view.dart';
+import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
 
 import '../controllers/categories_controller.dart';
 
@@ -221,7 +224,9 @@ class CategoriesView extends GetView<CategoriesController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => HomeView());
+                    },
                     icon: Icon(
                       Icons.home_rounded,
                       color: Colors.black,
@@ -229,7 +234,9 @@ class CategoriesView extends GetView<CategoriesController> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => BagView());
+                    },
                     icon: Icon(
                       Icons.shopping_bag_outlined,
                       color: Colors.white,
@@ -245,9 +252,12 @@ class CategoriesView extends GetView<CategoriesController> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => MyAccountView());
+                      
+                    },
                     icon: Icon(
-                      Icons.person_2_outlined,
+                      Icons.person_outlined,
                       color: Colors.white,
                       size: 32,
                     ),

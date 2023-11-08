@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mandirifurnitureapp/app/modules/bag/views/bag_view.dart';
+import 'package:mandirifurnitureapp/app/modules/home/views/home_view.dart';
+import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
 import 'package:mandirifurnitureapp/app/widgets/btnLike.dart';
 
 import '../../productDetail/views/product_detail_view.dart';
@@ -13,7 +16,7 @@ class CatalogView extends GetView<CatalogController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CatalogView' , style: TextStyle(color: Colors.black),),
+        title: const Text('Catalog' , style: TextStyle(color: Colors.black),),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -289,7 +292,10 @@ class CatalogView extends GetView<CatalogController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => HomeView());
+
+                    },
                     icon: Icon(
                       Icons.home_rounded,
                       color: Colors.black,
@@ -297,7 +303,10 @@ class CatalogView extends GetView<CatalogController> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => BagView());
+
+                    },
                     icon: Icon(
                       Icons.shopping_bag_outlined,
                       color: Colors.white,
@@ -313,9 +322,12 @@ class CatalogView extends GetView<CatalogController> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => MyAccountView());
+
+                    },
                     icon: Icon(
-                      Icons.person_2_outlined,
+                      Icons.person_outlined,
                       color: Colors.white,
                       size: 32,
                     ),

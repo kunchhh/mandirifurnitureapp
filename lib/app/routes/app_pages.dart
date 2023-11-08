@@ -10,6 +10,8 @@ import '../modules/categories/bindings/categories_binding.dart';
 import '../modules/categories/views/categories_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/myAccount/bindings/my_account_binding.dart';
+import '../modules/myAccount/views/my_account_view.dart';
 import '../modules/productDetail/bindings/product_detail_binding.dart';
 import '../modules/productDetail/views/product_detail_view.dart';
 
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.BAG,
       page: () => const BagView(),
       binding: BagBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_ACCOUNT,
+      page: () => const MyAccountView(),
+      binding: MyAccountBinding(),
     ),
   ];
 }

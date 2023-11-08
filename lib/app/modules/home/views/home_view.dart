@@ -4,6 +4,7 @@ import 'package:mandirifurnitureapp/app/modules/bag/views/bag_view.dart';
 import 'package:mandirifurnitureapp/app/modules/catalog/views/catalog_view.dart';
 import 'package:mandirifurnitureapp/app/modules/categories/views/categories_view.dart';
 import 'package:mandirifurnitureapp/app/modules/home/views/list_item.dart';
+import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -15,36 +16,14 @@ class HomeView extends GetView<HomeController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Home",style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),),
-        centerTitle: true,
-         /* Search form */
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-            child: Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Search...",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        filled: true,
-                        fillColor: Colors.grey.shade100,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide.none),
-                        prefixIcon: Icon(Icons.search),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+        title: Text(
+          "Home",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        /* Search Form End */
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -52,11 +31,44 @@ class HomeView extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Welcome 👋\nKuncoro Adin Nugraha", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),),
-              SizedBox(height: 20,),
+              Text(
+                "Welcome 👋\nKuncoro Adin Nugraha",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              /* Search box */
+              Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Search...",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          filled: true,
+                          fillColor: Colors.grey.shade100,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide.none),
+                          prefixIcon: Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              /* Search box end */
+              SizedBox(
+                height: 20,
+              ),
               // ListView Horizontal
               Container(
-                height: 110.0, 
+                height: 110.0,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
@@ -73,18 +85,14 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                           Positioned(
-                            bottom:
-                                10.0, 
+                            bottom: 10.0,
                             left: 7.0,
                             child: Text(
                               'Kitchen',
                               style: TextStyle(
-                                  color: Colors
-                                      .white, 
+                                  color: Colors.white,
                                   fontSize: 20.0,
-                                  fontWeight: FontWeight.bold
-                                  
-                                  ),
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -120,7 +128,6 @@ class HomeView extends GetView<HomeController> {
 
               // listview horizontal end
 
-
               SizedBox(
                 height: 20.0,
               ),
@@ -137,6 +144,8 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 5.0,
               ),
+
+              /* Listview vertical */
               Container(
                 height: 300.0,
                 child: ListView.builder(
@@ -154,7 +163,7 @@ class HomeView extends GetView<HomeController> {
                         );
                       case 1:
                         return CustomListItem(
-                           onTap: () {
+                          onTap: () {
                             Get.to(() => CategoriesView());
                           },
                           text: 'Bathroom',
@@ -162,7 +171,7 @@ class HomeView extends GetView<HomeController> {
                         );
                       case 2:
                         return CustomListItem(
-                           onTap: () {
+                          onTap: () {
                             Get.to(() => CategoriesView());
                           },
                           text: 'Kitchen',
@@ -170,7 +179,7 @@ class HomeView extends GetView<HomeController> {
                         );
                       case 3:
                         return CustomListItem(
-                           onTap: () {
+                          onTap: () {
                             Get.to(() => CategoriesView());
                           },
                           text: 'Living Room',
@@ -178,7 +187,7 @@ class HomeView extends GetView<HomeController> {
                         );
                       case 4:
                         return CustomListItem(
-                           onTap: () {
+                          onTap: () {
                             Get.to(() => CategoriesView());
                           },
                           text: 'Dining Room',
@@ -190,12 +199,15 @@ class HomeView extends GetView<HomeController> {
                   },
                 ),
               ),
+
+              /* Listview vertical end */
+
               SizedBox(height: 10),
             ],
           ),
         ),
       ),
-     /* Navbar */
+      /* Navbar */
       bottomNavigationBar: Padding(
           padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
           child: Container(
@@ -247,9 +259,11 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => MyAccountView());
+                    },
                     icon: Icon(
-                      Icons.person_2_outlined,
+                      Icons.person_outlined,
                       color: Colors.white,
                       size: 32,
                     ),

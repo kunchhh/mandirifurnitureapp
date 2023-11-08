@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: "Application",
-              initialRoute: Routes.BAG,
+              initialRoute: Routes.MY_ACCOUNT,
               getPages: AppPages.routes,
             );
           }
