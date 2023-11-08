@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mandirifurnitureapp/app/modules/bag/views/bag_view.dart';
 import 'package:mandirifurnitureapp/app/modules/catalog/views/catalog_view.dart';
 import 'package:mandirifurnitureapp/app/modules/categories/views/categories_view.dart';
 import 'package:mandirifurnitureapp/app/modules/home/views/list_item.dart';
@@ -11,59 +12,48 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text("Home",style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,),),
+        centerTitle: true,
+         /* Search form */
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Padding(
+            padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+            child: Container(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search...",
+                        hintStyle: TextStyle(color: Colors.grey),
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide.none),
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        /* Search Form End */
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 150.0,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 13.0),
-                        child: Text(
-                          "Home",
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Container(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Search...",
-                          hintStyle: TextStyle(color: Colors.grey),
-                          filled: true,
-                          fillColor: Colors.grey.shade100,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              borderSide: BorderSide.none),
-                          prefixIcon: Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-
+              Text("Welcome 👋\nKuncoro Adin Nugraha", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),),
+              SizedBox(height: 20,),
               // ListView Horizontal
               Container(
                 height: 110.0, 
@@ -229,7 +219,9 @@ class HomeView extends GetView<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => HomeView());
+                    },
                     icon: Icon(
                       Icons.home_rounded,
                       color: Colors.black,
@@ -237,7 +229,9 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => BagView());
+                    },
                     icon: Icon(
                       Icons.shopping_bag_outlined,
                       color: Colors.white,

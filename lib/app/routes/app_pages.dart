@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/Login/bindings/login_binding.dart';
 import '../modules/Login/views/login_view.dart';
+import '../modules/bag/bindings/bag_binding.dart';
+import '../modules/bag/views/bag_view.dart';
 import '../modules/catalog/bindings/catalog_binding.dart';
 import '../modules/catalog/views/catalog_view.dart';
 import '../modules/categories/bindings/categories_binding.dart';
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.CATEGORIES,
       page: () => const CategoriesView(),
       binding: CategoriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.BAG,
+      page: () => const BagView(),
+      binding: BagBinding(),
     ),
   ];
 }
