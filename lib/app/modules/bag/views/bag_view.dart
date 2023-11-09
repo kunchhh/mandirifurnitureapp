@@ -16,6 +16,7 @@ class BagView extends GetView<BagController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: TextButton(onPressed: () {}, child: Text(""),)
       ),
       body: Padding(
           padding: const EdgeInsets.all(15.0),

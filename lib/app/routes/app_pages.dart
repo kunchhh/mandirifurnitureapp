@@ -12,6 +12,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/myAccount/bindings/my_account_binding.dart';
 import '../modules/myAccount/views/my_account_view.dart';
+import '../modules/myProfile/bindings/my_profile_binding.dart';
+import '../modules/myProfile/views/my_profile_view.dart';
 import '../modules/productDetail/bindings/product_detail_binding.dart';
 import '../modules/productDetail/views/product_detail_view.dart';
 
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.MY_ACCOUNT,
       page: () => const MyAccountView(),
       binding: MyAccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_PROFILE,
+      page: () => const MyProfileView(),
+      binding: MyProfileBinding(),
     ),
   ];
 }

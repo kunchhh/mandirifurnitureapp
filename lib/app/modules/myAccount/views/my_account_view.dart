@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:mandirifurnitureapp/app/modules/myProfile/views/my_profile_view.dart';
 
 import '../../bag/views/bag_view.dart';
 import '../../home/views/home_view.dart';
@@ -14,6 +15,7 @@ class MyAccountView extends GetView<MyAccountController> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          leading: TextButton(onPressed: () {}, child: Text(""),),
           actions: [
             IconButton(
                 onPressed: () {},
@@ -109,23 +111,26 @@ class MyAccountView extends GetView<MyAccountController> {
                 Container(
                   child: Column(
                     children: [
-                      ListTile(
-                        leading: Icon(Icons.shopping_bag_outlined, color: Colors.black,),
+                     
+                     ListTile(
+                        leading: Icon(Icons.person_outlined, color: Colors.black,),
                         title: Text(
-                          'My orders',
+                          'My profile',
                           style: TextStyle(
                             color: Color(0xFF212121),
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => MyProfileView() );
+                        },
                       ),
-                     
-                     ListTile(
-                        leading: Icon(Icons.person_outlined, color: Colors.black,),
+
+                      ListTile(
+                        leading: Icon(Icons.shopping_bag_outlined, color: Colors.black,),
                         title: Text(
-                          'My profile',
+                          'My orders',
                           style: TextStyle(
                             color: Color(0xFF212121),
                             fontFamily: 'Poppins',

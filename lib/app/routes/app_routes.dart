@@ -11,6 +11,7 @@ abstract class Routes {
   static const BAG = _Paths.BAG;
   static const MYACCOUNT = _Paths.MYACCOUNT;
   static const MY_ACCOUNT = _Paths.MY_ACCOUNT;
+  static const MY_PROFILE = _Paths.MY_PROFILE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const BAG = '/bag';
   static const MYACCOUNT = '/myaccount';
   static const MY_ACCOUNT = '/my-account';
+  static const MY_PROFILE = '/my-profile';
 }

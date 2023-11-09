@@ -24,6 +24,7 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
         centerTitle: true,
+        leading: TextButton(onPressed: () {}, child: Text(""),)
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
