@@ -16,6 +16,8 @@ import '../modules/myProfile/bindings/my_profile_binding.dart';
 import '../modules/myProfile/views/my_profile_view.dart';
 import '../modules/productDetail/bindings/product_detail_binding.dart';
 import '../modules/productDetail/views/product_detail_view.dart';
+import '../modules/signUp/bindings/sign_up_binding.dart';
+import '../modules/signUp/views/sign_up_view.dart';
 
 part 'app_routes.dart';
 
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.MY_PROFILE,
       page: () => const MyProfileView(),
       binding: MyProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGN_UP,
+      page: () => const SignUpView(),
+      binding: SignUpBinding(),
     ),
   ];
 }

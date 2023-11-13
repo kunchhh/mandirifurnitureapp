@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/home/views/home_view.dart';
 import 'package:mandirifurnitureapp/app/widgets/mytextformfield.dart';
 import '../../../widgets/passwordtextformfield.dart';
+import '../../signUp/views/sign_up_view.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -134,7 +135,9 @@ class LoginView extends GetView<LoginController> {
                         Row(
                           children: [
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(() => SignUpView());
+                              },
                               child: Text(
                                 'Sign Up',
                                 style: TextStyle(

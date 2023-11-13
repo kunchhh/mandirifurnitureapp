@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/bag/views/bag_view.dart';
-import 'package:mandirifurnitureapp/app/modules/catalog/views/catalog_view.dart';
 import 'package:mandirifurnitureapp/app/modules/categories/views/categories_view.dart';
 import 'package:mandirifurnitureapp/app/modules/home/views/list_item.dart';
 import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
@@ -14,18 +13,20 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          "Home",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            "Home",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        centerTitle: true,
-        leading: TextButton(onPressed: () {}, child: Text(""),)
-      ),
+          centerTitle: true,
+          leading: TextButton(
+            onPressed: () {},
+            child: Text(""),
+          )),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
