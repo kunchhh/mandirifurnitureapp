@@ -11,6 +11,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -34,7 +35,7 @@ class HomeView extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Welcome 👋\nKuncoro Adin Nugraha",
+                "Welcome 👋\nkuncoro adin nugraha" ,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

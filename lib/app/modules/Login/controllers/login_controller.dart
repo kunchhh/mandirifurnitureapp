@@ -20,4 +20,6 @@ class LoginController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  final obscureText = true.obs;
 }
