@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../modules/Login/bindings/login_binding.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/bag/bindings/bag_binding.dart';
@@ -23,8 +22,6 @@ part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
-
-  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(

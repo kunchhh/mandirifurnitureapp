@@ -16,6 +16,7 @@ class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    
     final _formKey = GlobalKey<FormState>();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -41,11 +42,7 @@ class LoginView extends GetView<LoginController> {
             User userInfo = User.fromJson(resBodyOfLogin["userData"]);
             await RememberUserPrefs.storeUserInfo(userInfo);
             Future.delayed(Duration(milliseconds: 2000), () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => HomeView(),
-                ),
-              );
+             Get.off(() => HomeView());
             });
           } else {
 
@@ -163,7 +160,7 @@ class LoginView extends GetView<LoginController> {
                             child: IconButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) ;
-                                Get.to(() => HomeView());
+                                loginUserNow();
                               },
                               icon: Icon(
                                 Icons.arrow_forward_ios,

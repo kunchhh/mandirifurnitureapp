@@ -4,46 +4,56 @@ import 'package:mandirifurnitureapp/app/modules/bag/views/bag_view.dart';
 import 'package:mandirifurnitureapp/app/modules/categories/views/categories_view.dart';
 import 'package:mandirifurnitureapp/app/modules/home/views/list_item.dart';
 import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
+import '../../../../usePreferences/currentUser.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            "Home",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+    CurrentUser currentUser = Get.put(CurrentUser());
+
+    return GetBuilder(
+      init: CurrentUser(),
+      initState: (currentState) {
+        currentUser.getUserInfo();
+      },
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Text(
+              "Home",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            centerTitle: true,
+            leading: TextButton(
+              onPressed: () {},
+              child: Text(""),
             ),
           ),
-          centerTitle: true,
-          leading: TextButton(
-            onPressed: () {},
-            child: Text(""),
-          )),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Welcome 👋\nkuncoro adin nugraha" ,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
+           body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                   "Welcome 👋\n${currentUser.user.user_fullName}",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
               /* Search box */
               Container(
                 child: Row(
@@ -277,5 +287,6 @@ class HomeView extends GetView<HomeController> {
           )),
       /* Navbar end */
     );
+      });
   }
 }

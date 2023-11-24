@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../model/user.dart';
 
 class RememberUserPrefs {
@@ -9,8 +7,7 @@ class RememberUserPrefs {
 
   static Future<void> storeUserInfo(User userInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userJsonData = jsonEncode(userInfo.toJson());
-    await preferences.setString("currentUser", userJsonData);
+    await preferences.setString("currentUser", jsonEncode(userInfo.toJson()));
   }
 
   //get-read User-info
