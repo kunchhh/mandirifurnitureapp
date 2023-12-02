@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:date_field/date_field.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
-import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../../../../model/user.dart';
 import '../../../../usePreferences/currentUser.dart';
@@ -31,7 +31,7 @@ class MyProfileView extends GetView<MyProfileController> {
             "user_fullName": user.user_fullName,
             "user_email": user.user_email,
             "user_id_phoneNumber": user.user_id_phoneNumber,
-            "user_dateOfBirth" : user.user_dateOfBirth.toString(),
+            "user_dateOfBirth": user.user_dateOfBirth.toString(),
           },
         );
 
@@ -39,34 +39,49 @@ class MyProfileView extends GetView<MyProfileController> {
           var responseBody = jsonDecode(res.body);
 
           if (responseBody["success"] == true) {
-            Get.snackbar("Success", "Update profile",
-                backgroundColor: Colors.green, colorText: Colors.white);
+
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.success,
+              text: 'Update profile successfully!',
+            );
+
             RememberUserPrefs.updateUserInfo(_currentUser.user).then((value) {
               _currentUser.user.user_fullName = user.user_fullName;
               _currentUser.user.user_email = user.user_email;
               _currentUser.user.user_id_phoneNumber = user.user_id_phoneNumber;
-              _currentUser.user.user_dateOfBirth = user.user_dateOfBirth.toString();
+              _currentUser.user.user_dateOfBirth =
+                  user.user_dateOfBirth.toString();
 
-            
               controller.update();
               Get.off(() => MyProfileView());
             });
 
             return true;
           } else {
-            Get.snackbar("Error!", "Failed to update",
-                backgroundColor: Colors.red, colorText: Colors.white);
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: 'Oops...',
+              text: 'Sorry, Failed to update',
+            );
             return false;
           }
         } else {
-          Get.snackbar("Error", "Status code is not 200",
-              backgroundColor: Colors.black, colorText: Colors.white);
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.warning,
+            text: 'Status code is not 200',
+          );
           return false;
         }
       } catch (errorMessage) {
         print("Error: $errorMessage");
-        Get.snackbar("Error", "$errorMessage",
-            backgroundColor: Colors.black, colorText: Colors.white);
+        QuickAlert.show(
+          context: context,
+          type: QuickAlertType.warning,
+          text: '$errorMessage',
+        );
         return false;
       }
     }
@@ -298,8 +313,9 @@ class MyProfileView extends GetView<MyProfileController> {
                           DateTimeFormField(
                             initialValue:
                                 _currentUser.user.user_dateOfBirth != null
-                                    ? DateTime.parse(
-                                        _currentUser.user.user_dateOfBirth.toString())
+                                    ? DateTime.parse(_currentUser
+                                        .user.user_dateOfBirth
+                                        .toString())
                                     : null,
                             decoration: InputDecoration(
                               labelText: 'Date of birthday',

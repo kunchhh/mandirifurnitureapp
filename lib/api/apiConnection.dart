@@ -1,7 +1,7 @@
 class api {
 
   /* Koneksi untuk setiap folder */
-  static const hostConnect = "http://192.168.100.229/api_mandirifurniture/";
+  static const hostConnect = "http://192.168.31.235/api_mandirifurniture/";
   static const hostConnectUser = "$hostConnect/user";
 
    /* User */
