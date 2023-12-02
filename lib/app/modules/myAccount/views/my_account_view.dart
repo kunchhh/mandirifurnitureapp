@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/Login/views/login_view.dart';
 import 'package:mandirifurnitureapp/app/modules/myProfile/views/my_profile_view.dart';
-
 import '../../../../usePreferences/currentUser.dart';
 import '../../../../usePreferences/userPreferences.dart';
 import '../../bag/views/bag_view.dart';
@@ -64,12 +63,12 @@ class MyAccountView extends GetView<MyAccountController> {
     }
     /* User SIGN OUT-End */
 
-    /* return GetBuilder(
+    return GetBuilder(
         init: CurrentUser(),
         initState: (currentState) {
           _currentUser.getUserInfo();
         },
-        builder: (controller) { */
+        builder: (controller) {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -315,6 +314,6 @@ class MyAccountView extends GetView<MyAccountController> {
                 )),
             /* Navbar end */
           );
-       
+        });
   }
 }

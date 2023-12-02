@@ -49,6 +49,7 @@ class SignUpView extends GetView<SignUpController> {
             passwordEditingController.clear();
             phoneNumberEditingController.clear();
             dateOfBirthEditingController.clear();
+            
           } else {
             Get.snackbar("Error", "Error Occurred, Try Again.",
                 backgroundColor: Colors.red, colorText: Colors.white);
@@ -278,17 +279,32 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       DateTimeFormField(
                         decoration: InputDecoration(
-                          labelText: 'Date of birthday',
-                          labelStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 18,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                          ),
-                          hintText: 'MM-dd-yyyy',
-                          filled: true,
-                          fillColor: Color(0xFFF5F5F5),
-                        ),
+                              labelText: 'Date of birthday',
+                              labelStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 18,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                              ),
+                              hintText: ("MM-dd-yy"),
+                              hintStyle: TextStyle(color: Colors.black),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFF5F5F5),
+                              
+                            ),
                         mode: DateTimeFieldPickerMode.date,
                         validator: (value) {
                           if (value == null) {

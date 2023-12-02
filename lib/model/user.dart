@@ -26,7 +26,7 @@ class User {
     'user_email' : user_email,
     'user_password' : user_password,
     'user_id_phoneNumber' : user_id_phoneNumber,
-    'user_dateOfBirth' : user_dateOfBirth
+    'user_dateOfBirth' : user_dateOfBirth.toString()
   };
 
 }

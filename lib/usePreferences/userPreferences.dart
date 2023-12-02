@@ -16,19 +16,22 @@ class RememberUserPrefs {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String? userInfo = preferences.getString("currentUser");
 
-    if(userInfo != null) {
+    if (userInfo != null) {
       Map<String, dynamic> userDataMap = jsonDecode(userInfo);
       currentUserInfo = User.fromJson(userDataMap);
-    } 
+    }
     return currentUserInfo;
   }
-  static Future<void> removeUserInfo() async{
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      await preferences.remove("currentUser");
-    }
 
-     static Future<void> updateUserInfo(User updatedUserInfo) async {
+  static Future<void> removeUserInfo() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString("currentUser", jsonEncode(updatedUserInfo.toJson()));
+    await preferences.remove("currentUser");
+  }
+
+  static Future<void> updateUserInfo(User updatedUserInfo) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(
+        "currentUser", jsonEncode(updatedUserInfo.toJson()));
+        
   }
 }

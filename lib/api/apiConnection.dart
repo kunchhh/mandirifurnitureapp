@@ -8,5 +8,6 @@ class api {
   static const userLogin = "$hostConnectUser/userLogin.php";
   static const userSignUp = "$hostConnectUser/userSignUp.php";
   static const userEmailValidated = "$hostConnectUser/userEmailValidated.php";
-
-}
+  static const userUpdateData = "$hostConnectUser/userUpdateData.php";
+  
+  }
