@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/Login/views/login_view.dart';
 import 'package:mandirifurnitureapp/app/modules/myProfile/views/my_profile_view.dart';
+import 'package:quickalert/quickalert.dart';
 import '../../../../usePreferences/currentUser.dart';
 import '../../../../usePreferences/userPreferences.dart';
 import '../../bag/views/bag_view.dart';
@@ -17,49 +18,23 @@ class MyAccountView extends GetView<MyAccountController> {
 
     /* User SIGN OUT */
     signOutUser() async {
-      var resultResponse = await Get.dialog(
-        AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text(
-            "Logout",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: const Text(
-            "Are you sure?\nyou want to logout from app?",
-          ),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text(
-                  "No",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                )),
-            TextButton(
-                onPressed: () {
-                  Get.back(result: "loggedOut");
-                },
-                child: const Text(
-                  "Yes",
-                  style: TextStyle(
-                    color: Colors.redAccent,
-                  ),
-                )),
-          ],
-        ),
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.warning,
+        confirmBtnText: "Yes",
+        cancelBtnText: "Cancel",
+        showCancelBtn: true,
+        showConfirmBtn: true,
+        onCancelBtnTap: () => Get.back(),
+        onConfirmBtnTap: () {
+          RememberUserPrefs.removeUserInfo().then((value) {
+            Get.off(() => LoginView());
+          });
+        },
+        confirmBtnColor: Colors.orangeAccent,
+        title: "Logout",
+        text: "Are you sure?\nDo you want to logout from the app?",
       );
-
-      if (resultResponse == "loggedOut") {
-        RememberUserPrefs.removeUserInfo().then((value) {
-          Get.off(() =>LoginView());
-        });
-      }
     }
     /* User SIGN OUT-End */
 

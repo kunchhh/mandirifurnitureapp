@@ -95,7 +95,7 @@ class LoginView extends GetView<LoginController> {
               child: Form(
                 key: _formKey,
                 child: Container(
-                  padding: EdgeInsets.only(top: 370, right: 35, left: 35),
+                  padding: EdgeInsets.only(top: 380, right: 35, left: 35),
                   child: Column(
                     children: [
                       MyTextFormField(

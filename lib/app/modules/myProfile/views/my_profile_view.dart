@@ -85,7 +85,7 @@ class MyProfileView extends GetView<MyProfileController> {
         return false;
       }
     }
-/*Function userUpdateData-end*/
+    /*Function userUpdateData-end*/
 
     return GetBuilder(
         init: CurrentUser(),

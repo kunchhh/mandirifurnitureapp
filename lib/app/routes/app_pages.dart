@@ -3,10 +3,6 @@ import '../modules/Login/bindings/login_binding.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/bag/bindings/bag_binding.dart';
 import '../modules/bag/views/bag_view.dart';
-import '../modules/catalog/bindings/catalog_binding.dart';
-import '../modules/catalog/views/catalog_view.dart';
-import '../modules/categories/bindings/categories_binding.dart';
-import '../modules/categories/views/categories_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/myAccount/bindings/my_account_binding.dart';
@@ -34,21 +30,21 @@ class AppPages {
       page: () => const LoginView(),
       binding: LoginBinding(),
     ),
-    GetPage(
+    /* GetPage(
       name: _Paths.CATALOG,
       page: () => const CatalogView(),
       binding: CatalogBinding(),
-    ),
-    GetPage(
+    ), */
+   /*  GetPage(
       name: _Paths.PRODUCT_DETAIL,
-      page: () => const ProductDetailView(),
+      page: () => const ProductDetailView(productInfo: null,),
       binding: ProductDetailBinding(),
-    ),
-    GetPage(
+    ), */
+    /* GetPage(
       name: _Paths.CATEGORIES,
       page: () => const CategoriesView(),
       binding: CategoriesBinding(),
-    ),
+    ), */
     GetPage(
       name: _Paths.BAG,
       page: () => const BagView(),
