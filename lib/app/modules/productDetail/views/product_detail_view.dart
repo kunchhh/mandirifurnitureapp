@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import 'package:mandirifurnitureapp/app/widgets/btnLike.dart';
 import 'package:lecle_flutter_carousel_pro/lecle_flutter_carousel_pro.dart';
+import 'package:mandirifurnitureapp/app/widgets/btnLikeinnerBoxIsScrolled.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../../../../model/products.dart';
@@ -17,14 +18,13 @@ import 'package:http/http.dart' as http;
 class ProductDetailView extends GetView<ProductDetailController> {
   final Products productInfo;
 
-  const ProductDetailView({Key? key, required this.productInfo})
-      : super(key: key);
+  ProductDetailView({Key? key, required this.productInfo}) : super(key: key);
+
+  final productDetailController = Get.put(ProductDetailController());
+  final currentOnlineUser = Get.put(CurrentUser());
 
   @override
   Widget build(BuildContext context) {
-    final productDetailController = Get.put(ProductDetailController());
-    final currentOnlineUser = Get.put(CurrentUser());
-
     /* func addToBag */
     addProductToBag() async {
       try {
@@ -56,7 +56,6 @@ class ProductDetailView extends GetView<ProductDetailController> {
             type: QuickAlertType.info,
             text: "Error, Status is not 200",
           );
-
         }
       } catch (errorMsg) {
         Get.snackbar('Failed', errorMsg.toString(),
@@ -71,207 +70,180 @@ class ProductDetailView extends GetView<ProductDetailController> {
     /* func addToBag */
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'ProductDetailView',
-            style: TextStyle(color: Colors.black),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              )),
-          actions: [btnLike()],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildImage(),
-              Container(
-                padding: EdgeInsets.all(18),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 300,
+              floating: false,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: _buildImage(),
+              ),
+              backgroundColor:
+                  innerBoxIsScrolled ? Colors.white : Colors.transparent,
+              elevation: innerBoxIsScrolled ? 4 : 0,
+              leading: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: innerBoxIsScrolled
+                        ? Colors.transparent
+                        : Color.fromARGB(50, 0, 0, 0),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: innerBoxIsScrolled ? Colors.black : Colors.white,
+                    ),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                ),
+              ),
+              actions: [
+                Container(
+                    decoration: BoxDecoration(
+                      color: innerBoxIsScrolled
+                          ? Colors.transparent
+                          : Color.fromARGB(50, 0, 0, 0),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: BtnLikeInnerBoxScrolled(
+                        innerBoxIsScrolled: innerBoxIsScrolled)),
+              ],
+            ),
+          ];
+        },
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SingleChildScrollView(
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "\I\D\R\. ${productInfo.product_price}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Colors.deepOrange.shade900,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${productInfo.product_name}",
+                            "\I\D\R\. ${productInfo.product_price}",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 24,
+                              color: Colors.deepOrange.shade900,
                             ),
                           ),
-                          _buildQty(),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        ' ${productInfo.product_description}',
-                        textAlign: TextAlign.justify,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: 16,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        children: [
+                          SizedBox(height: 10),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              _buildColor(),
-                              /* GestureDetector(
-                                onTap: () {
-                                  controller.toggleSelected();
-                                },
-                                child: Obx(() => Container(
-                                      padding: EdgeInsets.all(10),
-                                      height: 40,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: controller.isSelected.value
-                                              ? Colors.transparent
-                                              : Colors.grey.shade600,
-                                        ),
-                                        color: controller.isSelected.value
-                                            ? Colors.yellow.shade700
-                                            : Colors.white,
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            width: 18,
-                                            height: 18,
-                                            decoration: ShapeDecoration(
-                                              color: Color(0xFFA46506),
-                                              shape: OvalBorder(
-                                                side: BorderSide(
-                                                  width: 1,
-                                                  color: Color(0xFFEEEEEE),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            'Brown',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w500,
-                                              height: 0,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
+                              Text(
+                                "${productInfo.product_name}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
                               ),
-                               */
-                              SizedBox(
-                                width: 10,
+                              _buildQty(),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            ' ${productInfo.product_description}',
+                            textAlign: TextAlign.justify,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  _buildColor(),
+                                  SizedBox(width: 10),
+                                ],
                               ),
                             ],
                           ),
                         ],
-                      )
-                    ]),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(13.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'You might also like',
-                      style: TextStyle(
-                        color: Color(0xFF212121),
-                        fontSize: 18,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 0.06,
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'You might also like',
+                            style: TextStyle(
+                              color: Color(0xFF212121),
+                              fontSize: 18,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              height: 0.06,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          otherProducts(context),
+                        ],
+                      ),
                     ),
-                    otherProducts(context)
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-            child: Container(
-              height: 55,
-              child: ElevatedButton(
-                onPressed: () {
-                  addProductToBag();
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.orange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Add to bag",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Icon(
-                        Icons.shopping_bag_outlined,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                    ],
-                  ),
+      ),
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Container(
+            height: 55,
+            child: ElevatedButton(
+              onPressed: addProductToBag,
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(80.0),
                 ),
               ),
-            )));
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Add to bag",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Icon(
+                      Icons.shopping_bag_outlined,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildColor() {
@@ -372,38 +344,55 @@ class ProductDetailView extends GetView<ProductDetailController> {
         borderRadius: BorderRadius.circular(10),
         color: Colors.yellow.shade700,
       ),
-      child: Row(
+      child: Obx(
+        () => Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            //-
             IconButton(
-              icon: Icon(Icons.remove, color: Colors.black, size: 18),
               onPressed: () {
-                if (controller.count.value > 0) {
-                  controller.count.value--;
+                if (productDetailController.quantity - 1 >= 1) {
+                  productDetailController
+                      .setQuantityProduct(productDetailController.quantity - 1);
                 } else {
                   Get.snackbar(
                     "Error",
-                    "Tidak boleh kurang dari nol",
+                    "Tidak boleh kurang dari 1",
                     backgroundColor: Colors.grey.shade100,
                   );
                 }
               },
+              icon: const Icon(
+                Icons.remove,
+                color: Colors.black,
+                size: 18,
+              ),
             ),
-            Obx(() => Text(
-                  controller.count.toString(),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                )),
+
+            Text(
+              productDetailController.quantity.toString(),
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+
+            //+
             IconButton(
-              icon: Icon(Icons.add, color: Colors.black, size: 18),
               onPressed: () {
-                controller.count.value++;
+                productDetailController
+                    .setQuantityProduct(productDetailController.quantity + 1);
               },
+              icon: const Icon(
+                Icons.add,
+                color: Colors.black,
+                size: 18,
+              ),
             ),
-          ]),
+          ],
+        ),
+      ),
     );
   }
 

@@ -223,70 +223,73 @@ class MyAccountView extends GetView<MyAccountController> {
               ),
             ),
             /* Navbar */
-            bottomNavigationBar: Padding(
-                padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.elliptical(80, 80),
-                      topRight: Radius.elliptical(80, 80),
-                      bottomLeft: Radius.elliptical(80, 80),
-                      bottomRight: Radius.elliptical(80, 80),
+            bottomNavigationBar: Container(
+              color: Colors.white,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                  child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.elliptical(80, 80),
+                        topRight: Radius.elliptical(80, 80),
+                        bottomLeft: Radius.elliptical(80, 80),
+                        bottomRight: Radius.elliptical(80, 80),
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 40,
-                      right: 40,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 40,
+                        right: 40,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Get.to(() => HomeView());
+                            },
+                            icon: Icon(
+                              Icons.home_rounded,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Get.to(() => BagView());
+                            },
+                            icon: Icon(
+                              Icons.shopping_bag_outlined,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.favorite_outline_rounded,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Get.to(() => MyAccountView());
+                            },
+                            icon: Icon(
+                              Icons.person_outlined,
+                              color: Colors.black,
+                              size: 32,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Get.to(() => HomeView());
-                          },
-                          icon: Icon(
-                            Icons.home_rounded,
-                            color: Colors.white,
-                            size: 32,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Get.to(() => BagView());
-                          },
-                          icon: Icon(
-                            Icons.shopping_bag_outlined,
-                            color: Colors.white,
-                            size: 32,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.favorite_outline_rounded,
-                            color: Colors.white,
-                            size: 32,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Get.to(() => MyAccountView());
-                          },
-                          icon: Icon(
-                            Icons.person_outlined,
-                            color: Colors.black,
-                            size: 32,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )),
+                  )),
+            ),
             /* Navbar end */
           );
         });

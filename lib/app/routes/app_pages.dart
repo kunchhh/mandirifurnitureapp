@@ -30,21 +30,6 @@ class AppPages {
       page: () => const LoginView(),
       binding: LoginBinding(),
     ),
-    /* GetPage(
-      name: _Paths.CATALOG,
-      page: () => const CatalogView(),
-      binding: CatalogBinding(),
-    ), */
-   /*  GetPage(
-      name: _Paths.PRODUCT_DETAIL,
-      page: () => const ProductDetailView(productInfo: null,),
-      binding: ProductDetailBinding(),
-    ), */
-    /* GetPage(
-      name: _Paths.CATEGORIES,
-      page: () => const CategoriesView(),
-      binding: CategoriesBinding(),
-    ), */
     GetPage(
       name: _Paths.BAG,
       page: () => const BagView(),
