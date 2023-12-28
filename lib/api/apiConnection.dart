@@ -5,6 +5,8 @@ class api {
   static const hostConnectUser = "$hostConnect/user";
   static const hostConnectFilterProduct = "$hostConnect/filterProduct";
   static const hostBag = "$hostConnect/bag";
+  static const hostFavorite = "$hostConnect/favoriteProduct";
+
 
 
    /* User */
@@ -21,5 +23,11 @@ class api {
 
   /* filter product */
   static const newestProduct = "$hostConnectFilterProduct/newestProduct.php"; 
+
+  /* Favorite product */
+  static const addFavoriteProduct = "$hostFavorite/addFavoriteProduct.php"; 
+  static const deleteFavoriteProduct = "$hostFavorite/deleteFavoriteProduct.php"; 
+  static const validateFavoriteProduct = "$hostFavorite/validateFavoriteProduct.php"; 
+  static const readFavoriteProduct = "$hostFavorite/readFavoriteProduct.php"; 
 
   }

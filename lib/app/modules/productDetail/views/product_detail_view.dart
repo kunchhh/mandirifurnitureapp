@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
+import 'package:mandirifurnitureapp/app/modules/favoriteProduct/views/favorite_product_view.dart';
 import 'package:mandirifurnitureapp/app/widgets/btnLike.dart';
 import 'package:lecle_flutter_carousel_pro/lecle_flutter_carousel_pro.dart';
 import 'package:mandirifurnitureapp/app/widgets/btnLikeinnerBoxIsScrolled.dart';
@@ -67,7 +68,352 @@ class ProductDetailView extends GetView<ProductDetailController> {
         print("Error :: " + errorMsg.toString());
       }
     }
-    /* func addToBag */
+    /* func addToBag end */
+
+    /* validate favorite product list */
+    validateFavoriteProductList() async {
+      try {
+        var res = await http.post(
+          Uri.parse(api.validateFavoriteProduct),
+          body: {
+            "favorite_user_id":
+                currentOnlineUser.user.user_id_phoneNumber.toString(),
+            "favorite_product_id": productInfo.product_id.toString(),
+          },
+        );
+
+        if (res.statusCode == 200) {
+          var resBodyOfvalidateFavoriteProduct = jsonDecode(res.body);
+          if (resBodyOfvalidateFavoriteProduct['favoriteFound'] == true) {
+            productDetailController.setIsFavorite(true);
+          } else {
+            productDetailController.setIsFavorite(false);
+          }
+        } else {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.info,
+            text: "Error, Status is not 200",
+          );
+        }
+      } catch (errorMsg) {
+        print("Error :: " + errorMsg.toString());
+      }
+    }
+    /* validate favorite product list end */
+
+    /* add favorite product*/
+    addFavoriteProduct() async {
+      try {
+        var res = await http.post(
+          Uri.parse(api.addFavoriteProduct),
+          body: {
+            "favorite_user_id":
+                currentOnlineUser.user.user_id_phoneNumber.toString(),
+            "favorite_product_id": productInfo.product_id.toString(),
+          },
+        );
+
+        if (res.statusCode == 200) {
+          var resBodyOfaddFavoriteProduct = jsonDecode(res.body);
+          if (resBodyOfaddFavoriteProduct['success'] == true) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.success,
+              text: 'Product saved to favorite list successfully',
+            );
+            validateFavoriteProductList();
+          } else {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: 'Oops...',
+              text: "Error, Product not saved to favorite list, Try Again.",
+            );
+          }
+        } else {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.info,
+            text: "Error, Status is not 200",
+          );
+        }
+      } catch (errorMsg) {
+        print("Error :: " + errorMsg.toString());
+      }
+    }
+    /* add favorite product end*/
+
+    /* delete favorite product*/
+    deleteFavoriteProduct() async {
+      try {
+        var res = await http.post(
+          Uri.parse(api.deleteFavoriteProduct),
+          body: {
+            "favorite_user_id":
+                currentOnlineUser.user.user_id_phoneNumber.toString(),
+            "favorite_product_id": productInfo.product_id.toString(),
+          },
+        );
+
+        if (res.statusCode == 200) {
+          var resBodyOfdeleteFavoriteProduct = jsonDecode(res.body);
+          if (resBodyOfdeleteFavoriteProduct['success'] == true) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.success,
+              text: 'Product deleted from favorite list',
+            );
+            validateFavoriteProductList();
+          } else {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: 'Oops...',
+              text: "Error, Product not deleted from your Favorite List.",
+            );
+          }
+        } else {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.info,
+            text: "Error, Status is not 200",
+          );
+        }
+      } catch (errorMsg) {
+        print("Error :: " + errorMsg.toString());
+      }
+    }
+    /* add favorite product end*/
+
+    /* List newestProduct */
+    Future<List<Products>> newestProduct() async {
+      List<Products> allNewestProductList = [];
+
+      try {
+        var res = await http.post(Uri.parse(api.newestProduct));
+
+        if (res.statusCode == 200) {
+          var responseBodyOfAllNewestProduct = jsonDecode(res.body);
+          if (responseBodyOfAllNewestProduct["success"] == true) {
+            (responseBodyOfAllNewestProduct["productsData"] as List)
+                .forEach((eachRecord) {
+              allNewestProductList.add(Products.fromJson(eachRecord));
+            });
+          }
+        } else {
+          Get.snackbar("Error", "status is not 200",
+              backgroundColor: Colors.black, colorText: Colors.white);
+        }
+      } catch (errorMsg) {
+        print("Error:: " + errorMsg.toString());
+      }
+
+      return allNewestProductList;
+    }
+    /* List newestProduct end */
+
+    /* Widget otherProducts*/
+    Widget otherProducts(context) {
+      return FutureBuilder(
+        future: newestProduct(),
+        builder: (context, AsyncSnapshot<List<Products>> dataSnapShot) {
+          if (dataSnapShot.connectionState == ConnectionState.waiting) {
+            return Row(
+              children: [
+                SizedBox(width: 10),
+                ShimmerHorizontal(),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.04,
+                ),
+                ShimmerHorizontal(),
+                SizedBox(width: 10),
+              ],
+            );
+          }
+          if (dataSnapShot.data == null) {
+            return Center(
+              child: Container(
+                margin: EdgeInsets.only(top: 100),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/content/dissatisfied.png",
+                      width: 120.0,
+                      height: 120.0,
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      "No product found!",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          if (dataSnapShot.data!.length > 0) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: MediaQuery.of(context).size.height * 0.38,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10),
+                itemCount: dataSnapShot.data!.length,
+                itemBuilder: (context, index) {
+                  Products eachProductsRecord = dataSnapShot.data![index];
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() =>
+                          ProductDetailView(productInfo: eachProductsRecord));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Card(
+                        child: Container(
+                          color: Colors.white,
+                          width: 150,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                height: 170,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(
+                                      eachProductsRecord.product_mainImage!,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 0),
+                              Container(
+                                padding: EdgeInsets.only(left: 10, right: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "\I\D\R\. ${eachProductsRecord.product_price}",
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.deepOrange.shade900,
+                                          ),
+                                        ),
+                                        btnLike()
+                                        /* Obx(() => IconButton(
+                                              onPressed: () async {
+                                                if (productDetailController
+                                                        .isFavorite ==
+                                                    true) {
+                                                  deleteFavoriteProduct();
+                                                } else {
+                                                  addFavoriteProduct();
+                                                }
+                                              },
+                                              icon: Icon(
+                                                productDetailController
+                                                        .isFavorite
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border,
+                                                color: productDetailController
+                                                        .isFavorite
+                                                    ? Colors.red
+                                                    : Colors.black,
+                                                size: 18,
+                                              ),
+                                            )) */
+                                      ],
+                                    ),
+                                    Text(
+                                      eachProductsRecord.product_name!,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                      maxLines: 2,
+                                    ),
+                                    Text(
+                                      eachProductsRecord.product_description!,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey[600],
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          } else {
+            return Center(
+              child: Container(
+                margin: EdgeInsets.only(top: 100),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/content/surprised.png",
+                      width: 120.0,
+                      height: 120.0,
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      "Connection problem!",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "No data product",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    }
+    /* Widget otherProducts end*/
+
+    controller.onInit();
+    validateFavoriteProductList();
 
     return Scaffold(
       body: NestedScrollView(
@@ -105,14 +451,37 @@ class ProductDetailView extends GetView<ProductDetailController> {
               ),
               actions: [
                 Container(
+                    width: 40,
+                    height: 40,
                     decoration: BoxDecoration(
                       color: innerBoxIsScrolled
                           ? Colors.transparent
                           : Color.fromARGB(50, 0, 0, 0),
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: BtnLikeInnerBoxScrolled(
-                        innerBoxIsScrolled: innerBoxIsScrolled)),
+                    child: Obx(() => IconButton(
+                          onPressed: () async {
+                            if (productDetailController.isFavorite == true) {
+                              deleteFavoriteProduct();
+                            } else {
+                              addFavoriteProduct();
+                            }
+                          },
+                          icon: Icon(
+                            productDetailController.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: productDetailController.isFavorite
+                                ? Colors.red
+                                : innerBoxIsScrolled
+                                    ? Colors.black
+                                    : Colors.white,
+                            size: 18,
+                          ),
+                        ))),
+                SizedBox(
+                  width: 10,
+                )
               ],
             ),
           ];
@@ -395,208 +764,4 @@ class ProductDetailView extends GetView<ProductDetailController> {
       ),
     );
   }
-
-  /* List newestProduct */
-  Future<List<Products>> newestProduct() async {
-    List<Products> allNewestProductList = [];
-
-    try {
-      var res = await http.post(Uri.parse(api.newestProduct));
-
-      if (res.statusCode == 200) {
-        var responseBodyOfAllNewestProduct = jsonDecode(res.body);
-        if (responseBodyOfAllNewestProduct["success"] == true) {
-          (responseBodyOfAllNewestProduct["productsData"] as List)
-              .forEach((eachRecord) {
-            allNewestProductList.add(Products.fromJson(eachRecord));
-          });
-        }
-      } else {
-        Get.snackbar("Error", "status is not 200",
-            backgroundColor: Colors.black, colorText: Colors.white);
-      }
-    } catch (errorMsg) {
-      print("Error:: " + errorMsg.toString());
-    }
-
-    return allNewestProductList;
-  }
-  /* List newestProduct end */
-
-  /* Widget otherProducts*/
-  Widget otherProducts(context) {
-    return FutureBuilder(
-      future: newestProduct(),
-      builder: (context, AsyncSnapshot<List<Products>> dataSnapShot) {
-        if (dataSnapShot.connectionState == ConnectionState.waiting) {
-          return Row(
-            children: [
-              SizedBox(width: 10),
-              ShimmerHorizontal(),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.04,
-              ),
-              ShimmerHorizontal(),
-              SizedBox(width: 10),
-            ],
-          );
-        }
-        if (dataSnapShot.data == null) {
-          return Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 100),
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Image.asset(
-                    "assets/content/dissatisfied.png",
-                    width: 120.0,
-                    height: 120.0,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    "No product found!",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-        if (dataSnapShot.data!.length > 0) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisExtent: MediaQuery.of(context).size.height * 0.38,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 10),
-              itemCount: dataSnapShot.data!.length,
-              itemBuilder: (context, index) {
-                Products eachProductsRecord = dataSnapShot.data![index];
-                return GestureDetector(
-                  onTap: () {
-                    Get.to(() =>
-                        ProductDetailView(productInfo: eachProductsRecord));
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Card(
-                      child: Container(
-                        color: Colors.white,
-                        width: 150,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: 170,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                    eachProductsRecord.product_mainImage!,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 0),
-                            Container(
-                              padding: EdgeInsets.only(left: 10, right: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "\I\D\R\. ${eachProductsRecord.product_price}",
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                          color: Colors.deepOrange.shade900,
-                                        ),
-                                      ),
-                                      btnLike(),
-                                    ],
-                                  ),
-                                  Text(
-                                    eachProductsRecord.product_name!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                    maxLines: 2,
-                                  ),
-                                  Text(
-                                    eachProductsRecord.product_description!,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
-        } else {
-          return Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 100),
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Image.asset(
-                    "assets/content/surprised.png",
-                    width: 120.0,
-                    height: 120.0,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    "Connection problem!",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    "No data product",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-          );
-        }
-      },
-    );
-  }
-  /* Widget otherProducts end*/
 }

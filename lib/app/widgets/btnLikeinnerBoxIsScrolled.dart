@@ -22,6 +22,7 @@ class _BtnLikeInnerBoxScrolledState extends State<BtnLikeInnerBoxScrolled> {
             : widget.innerBoxIsScrolled
                 ? Colors.black
                 : Colors.white,
+                size: 18,
       ),
       onPressed: () {
         setState(() {

@@ -8,7 +8,7 @@ import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.
 import 'package:mandirifurnitureapp/app/widgets/Shimmer.dart';
 import '../../../../model/products.dart';
 import '../../../../usePreferences/currentUser.dart';
-import '../../../widgets/btnLike.dart';
+import '../../favoriteProduct/views/favorite_product_view.dart';
 import '../../productDetail/views/product_detail_view.dart';
 import '../controllers/home_controller.dart';
 import 'package:http/http.dart' as http;
@@ -413,7 +413,9 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(() => FavoriteProductView());
+                            },
                             icon: Icon(
                               Icons.favorite_outline_rounded,
                               color: Colors.white,
@@ -439,6 +441,8 @@ class HomeView extends GetView<HomeController> {
           );
         });
   }
+
+  
 
   /* List newestProduct */
   Future<List<Products>> newestProduct() async {
@@ -554,7 +558,7 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 0,
+                                    height: 10,
                                   ),
                                   Container(
                                     padding:
@@ -577,7 +581,6 @@ class HomeView extends GetView<HomeController> {
                                                     Colors.deepOrange.shade900,
                                               ),
                                             ),
-                                            btnLike(),
                                           ],
                                         ),
                                         Text(
@@ -733,7 +736,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 0),
+                            SizedBox(height: 10),
                             Container(
                               padding: EdgeInsets.only(left: 10, right: 5),
                               child: Column(
@@ -752,7 +755,6 @@ class HomeView extends GetView<HomeController> {
                                           color: Colors.deepOrange.shade900,
                                         ),
                                       ),
-                                      btnLike(),
                                     ],
                                   ),
                                   Text(

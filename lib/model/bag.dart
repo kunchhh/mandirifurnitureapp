@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Bag {
   int? bag_id;
   String? bag_product_id;

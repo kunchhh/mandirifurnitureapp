@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/Login/views/login_view.dart';
+import 'package:mandirifurnitureapp/app/modules/favoriteProduct/views/favorite_product_view.dart';
 import 'package:mandirifurnitureapp/app/modules/myProfile/views/my_profile_view.dart';
 import 'package:quickalert/quickalert.dart';
 import '../../../../usePreferences/currentUser.dart';
@@ -268,7 +269,9 @@ class MyAccountView extends GetView<MyAccountController> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(() => FavoriteProductView());
+                            },
                             icon: Icon(
                               Icons.favorite_outline_rounded,
                               color: Colors.white,

@@ -11,6 +11,7 @@ import 'package:quickalert/quickalert.dart';
 
 import '../../../../model/bag.dart';
 import '../../../../usePreferences/currentUser.dart';
+import '../../favoriteProduct/views/favorite_product_view.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/bag_controller.dart';
 import 'package:http/http.dart' as http;
@@ -667,7 +668,9 @@ class BagView extends GetView<BagController> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(() => FavoriteProductView());
+                              },
                               icon: Icon(
                                 Icons.favorite_outline_rounded,
                                 color: Colors.white,
