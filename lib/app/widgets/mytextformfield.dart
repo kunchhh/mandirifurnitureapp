@@ -8,7 +8,13 @@ class MyTextFormField extends StatelessWidget {
   final dynamic onSaved;
  
 
-  MyTextFormField ({required this.controller, required this.name, required this.prefixIcon, required this.validator, required this.onSaved});
+  MyTextFormField ({
+    required this.controller, 
+    required this.name, 
+    required this.prefixIcon, 
+    required this.validator, 
+    required this.onSaved
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +23,14 @@ class MyTextFormField extends StatelessWidget {
       validator: validator,
       onSaved: onSaved,
       decoration: InputDecoration(
+        fillColor: Colors.grey.shade100,
+        filled: true,
         prefixIcon: prefixIcon,
-       hintText: name,
-          hintStyle: TextStyle(
-          color: Colors.grey[700],),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-       ),
+        hintText: name,
+            hintStyle: TextStyle(
+            color: Colors.grey[700],),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+        ),
      );
   }
 }

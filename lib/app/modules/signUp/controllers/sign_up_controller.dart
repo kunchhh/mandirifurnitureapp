@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  //TODO: Implement LoginController
+class SignUpController extends GetxController {
+  //TODO: Implement SignUpController
 
   final count = 0.obs;
   @override
@@ -20,6 +20,4 @@ class LoginController extends GetxController {
   }
 
   void increment() => count.value++;
-
-  final obscureText = true.obs;
 }
