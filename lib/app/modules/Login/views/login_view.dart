@@ -159,7 +159,7 @@ class LoginView extends GetView<LoginController> {
                             backgroundColor: Colors.orange,
                             child: IconButton(
                               onPressed: () {
-                                if (_formKey.currentState!.validate()) ;
+                                if (_formKey.currentState!.validate());
                                 loginUserNow();
                               },
                               icon: Icon(
@@ -172,12 +172,13 @@ class LoginView extends GetView<LoginController> {
                       ),
                       Row(
                         children: [
+                          Text("Don't have an account?"),
                           TextButton(
                             onPressed: () {
                               Get.to(() => SignUpView());
                             },
                             child: Text(
-                              'Sign Up',
+                              'Sign Up!',
                               style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.lightBlue,
@@ -186,20 +187,7 @@ class LoginView extends GetView<LoginController> {
                           )
                         ],
                       ),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.lightBlue,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
+                     
                     ],
                   ),
                 ),

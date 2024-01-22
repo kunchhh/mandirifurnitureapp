@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
-import 'package:mandirifurnitureapp/app/modules/favoriteProduct/views/favorite_product_view.dart';
 import 'package:mandirifurnitureapp/app/widgets/btnLike.dart';
 import 'package:lecle_flutter_carousel_pro/lecle_flutter_carousel_pro.dart';
-import 'package:mandirifurnitureapp/app/widgets/btnLikeinnerBoxIsScrolled.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../../../../model/products.dart';
@@ -42,6 +40,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
               context: context,
               type: QuickAlertType.success,
               text: 'Product saved to bag successfully',
+              confirmBtnColor: Colors.orangeAccent,
             );
           } else {
             QuickAlert.show(
@@ -49,6 +48,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
               type: QuickAlertType.error,
               title: 'Oops...',
               text: "Error, Product not saved to Bag and Try Again.",
+              confirmBtnColor: Colors.orangeAccent,
             );
           }
         } else {
@@ -56,6 +56,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
             context: context,
             type: QuickAlertType.info,
             text: "Error, Status is not 200",
+            confirmBtnColor: Colors.orangeAccent,
           );
         }
       } catch (errorMsg) {
@@ -65,6 +66,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
             colorText: Colors.white,
             margin: const EdgeInsets.all(10),
             duration: const Duration(seconds: 2));
+
         print("Error :: " + errorMsg.toString());
       }
     }
@@ -94,6 +96,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
             context: context,
             type: QuickAlertType.info,
             text: "Error, Status is not 200",
+            confirmBtnColor: Colors.orangeAccent,
           );
         }
       } catch (errorMsg) {
@@ -121,6 +124,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
               context: context,
               type: QuickAlertType.success,
               text: 'Product saved to favorite list successfully',
+              confirmBtnColor: Colors.orangeAccent,
             );
             validateFavoriteProductList();
           } else {
@@ -129,6 +133,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
               type: QuickAlertType.error,
               title: 'Oops...',
               text: "Error, Product not saved to favorite list, Try Again.",
+              confirmBtnColor: Colors.orangeAccent,
             );
           }
         } else {
@@ -136,6 +141,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
             context: context,
             type: QuickAlertType.info,
             text: "Error, Status is not 200",
+            confirmBtnColor: Colors.orangeAccent,
           );
         }
       } catch (errorMsg) {
@@ -163,6 +169,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
               context: context,
               type: QuickAlertType.success,
               text: 'Product deleted from favorite list',
+              confirmBtnColor: Colors.orangeAccent,
             );
             validateFavoriteProductList();
           } else {
@@ -171,6 +178,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
               type: QuickAlertType.error,
               title: 'Oops...',
               text: "Error, Product not deleted from your Favorite List.",
+              confirmBtnColor: Colors.orangeAccent,
             );
           }
         } else {
@@ -178,6 +186,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
             context: context,
             type: QuickAlertType.info,
             text: "Error, Status is not 200",
+            confirmBtnColor: Colors.orangeAccent,
           );
         }
       } catch (errorMsg) {
@@ -521,17 +530,6 @@ class ProductDetailView extends GetView<ProductDetailController> {
                             ],
                           ),
                           SizedBox(height: 10),
-                          Text(
-                            ' ${productInfo.product_description}',
-                            textAlign: TextAlign.justify,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 16,
-                            ),
-                          ),
-                          SizedBox(height: 20),
                           Column(
                             children: [
                               Row(
@@ -541,6 +539,26 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                 ],
                               ),
                             ],
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            "Description: ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            '${productInfo.product_description}',
+                            textAlign: TextAlign.justify,
+                            maxLines: 5,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 14,
+                            ),
                           ),
                         ],
                       ),

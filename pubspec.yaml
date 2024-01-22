@@ -14,6 +14,12 @@ dependencies:
   quickalert: ^1.0.2
   shimmer: ^2.0.0
   lecle_flutter_carousel_pro: ^0.0.3
+  page_transition: ^2.1.0
+  easy_stepper: ^0.8.3
+  expandable_page_view: ^1.0.17
+  dropdown_search: ^0.5.0
+  flutter_stripe: ^8.0.0
+
   flutter:
     sdk: flutter
   flutter_staggered_grid_view: ^0.7.0
@@ -31,3 +37,8 @@ flutter:
     - assets/background/
     - assets/content/
     - assets/content-categories/
+
+fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf

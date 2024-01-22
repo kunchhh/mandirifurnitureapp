@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/Login/views/login_view.dart';
 import 'package:mandirifurnitureapp/app/modules/favoriteProduct/views/favorite_product_view.dart';
+import 'package:mandirifurnitureapp/app/modules/myOrders/views/my_orders_view.dart';
 import 'package:mandirifurnitureapp/app/modules/myProfile/views/my_profile_view.dart';
 import 'package:quickalert/quickalert.dart';
 import '../../../../usePreferences/currentUser.dart';
@@ -46,59 +47,44 @@ class MyAccountView extends GetView<MyAccountController> {
         },
         builder: (controller) {
           return Scaffold(
+            backgroundColor: Colors.grey.shade100,
             appBar: AppBar(
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.white,
               elevation: 0,
-              leading: TextButton(
-                onPressed: () {},
-                child: Text(""),
+              title: Text(
+                'my account',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              actions: [
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.settings_outlined,
-                      color: Colors.black,
-                    ))
-              ],
+             automaticallyImplyLeading: false,
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SingleChildScrollView(
+            body:  SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'my account',
-                      style: TextStyle(
-                        color: Color(0xFF212121),
-                        fontSize: 32,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 0.04,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: 5,),
                     Container(
+                      
+                      color: Colors.white,
                       child: Row(
                         children: [
                           Container(
-                            width: 56,
-                            height: 56,
+                            margin: EdgeInsets.all(10),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 56,
-                                  height: 56,
+                                  width: 86,
+                                  height: 86,
                                   decoration: ShapeDecoration(
                                     image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://via.placeholder.com/56x56"),
+                                      image: AssetImage(
+                                          "assets/content/friendly.png"),
                                       fit: BoxFit.fill,
                                     ),
                                     shape: OvalBorder(
@@ -143,29 +129,36 @@ class MyAccountView extends GetView<MyAccountController> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 5,
                     ),
 
                     /* account list menu */
                     Container(
+                      color: Colors.white,
+                      constraints: BoxConstraints(
+                        minHeight: 515
+                      ),
                       child: Column(
                         children: [
-                          ListTile(
-                            leading: Icon(
-                              Icons.person_outlined,
-                              color: Colors.black,
-                            ),
-                            title: Text(
-                              'My profile',
-                              style: TextStyle(
-                                color: Color(0xFF212121),
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
+                          Container(
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.person_outlined,
+                                color: Colors.black,
                               ),
+                              title: Text(
+                                'My profile',
+                                style: TextStyle(
+                                  color: Color(0xFF212121),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              trailing: Icon(Icons.arrow_forward_ios_rounded),
+                              onTap: () {
+                                Get.to(() => MyProfileView());
+                              },
                             ),
-                            onTap: () {
-                              Get.to(() => MyProfileView());
-                            },
                           ),
                           ListTile(
                             leading: Icon(
@@ -180,22 +173,10 @@ class MyAccountView extends GetView<MyAccountController> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            onTap: () {},
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.favorite_outline,
-                              color: Colors.black,
-                            ),
-                            title: Text(
-                              'Favorite',
-                              style: TextStyle(
-                                color: Color(0xFF212121),
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            onTap: () {},
+                            trailing: Icon(Icons.arrow_forward_ios_rounded),
+                            onTap: () {
+                              Get.to(() => MyOrdersView());
+                            },
                           ),
                           ListTile(
                             leading: Icon(
@@ -210,6 +191,7 @@ class MyAccountView extends GetView<MyAccountController> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
+                            trailing: Icon(Icons.arrow_forward_ios_rounded),
                             onTap: () {
                               signOutUser();
                             },
@@ -217,17 +199,16 @@ class MyAccountView extends GetView<MyAccountController> {
                         ],
                       ),
                     ),
-
                     /* Account list menu end */
                   ],
                 ),
               ),
-            ),
             /* Navbar */
             bottomNavigationBar: Container(
               color: Colors.white,
               child: Padding(
-                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                  padding:
+                      EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
                   child: Container(
                     height: 50,
                     width: double.infinity,

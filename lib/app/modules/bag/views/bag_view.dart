@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
+import 'package:mandirifurnitureapp/app/modules/checkout/views/checkout_view.dart';
 import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
 import 'package:mandirifurnitureapp/app/modules/productDetail/views/product_detail_view.dart';
 import 'package:mandirifurnitureapp/model/products.dart';
@@ -190,7 +191,7 @@ class BagView extends GetView<BagController> {
                       },
                     );
                   } else {
-                    return Container();
+                     return Container();
                   }
                 }),
             // delete selected product end
@@ -322,7 +323,7 @@ class BagView extends GetView<BagController> {
                                                               .ellipsis,
                                                         ),
                                                         // product name end
-                                                       
+
                                                         // Price
                                                         Text(
                                                           "\I\D\R\. ${bagModel.product_price}",
@@ -477,9 +478,8 @@ class BagView extends GetView<BagController> {
                   : Center(
                       child: Container(
                       width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 200),
                         child: Column(
+                          mainAxisAlignment:MainAxisAlignment.center,
                           children: [
                             Image.asset(
                               "assets/content/surprised.png",
@@ -528,7 +528,7 @@ class BagView extends GetView<BagController> {
                           ],
                         ),
                       ),
-                    )),
+                    )
             );
           }),
         ),
@@ -603,18 +603,32 @@ class BagView extends GetView<BagController> {
                                 width: 10,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.orange,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  minimumSize: Size(100, 35),
-                                ),
                                 child: Text(
                                   'Checkout',
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  bagListController.selectedProductList.length > 0 
+                                  ? Get.to(
+                                    () => CheckoutView(
+                                      selectedProductListInfo: getSelectedBagListProductsInformation(),
+                                      totalAmount: bagListController.total,
+                                      selectedBagIDs: bagListController.selectedProductList,
+                                    ),
+                                    transition: Transition.rightToLeft, 
+                                    duration: Duration(milliseconds:300),
+                                  )
+                                  : null;
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: bagListController.selectedProductList.length > 0 
+                                  ? Colors.orange
+                                  : Colors.grey.shade400,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  minimumSize: Size(100, 35),
                                 ),
                               )
                             ],

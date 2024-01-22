@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import 'package:mandirifurnitureapp/app/modules/bag/views/bag_view.dart';
+import 'package:mandirifurnitureapp/app/modules/categories/views/deskScreen.dart';
+import 'package:mandirifurnitureapp/app/modules/categories/views/sofaScreen.dart';
 import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
+import 'package:mandirifurnitureapp/app/modules/search/views/searchAll.dart';
 import 'package:mandirifurnitureapp/app/widgets/Shimmer.dart';
 import '../../../../model/products.dart';
 import '../../../../usePreferences/currentUser.dart';
@@ -22,10 +25,86 @@ class HomeView extends GetView<HomeController> {
 
     TextEditingController searchController = TextEditingController();
 
-    /* void _performSearch() {
-    Get.to(() => SearchItems(typedKeyWords : searchController.text));
-    FocusScope.of(context).unfocus();
-  } */
+    void _performSearch() {
+      Get.to(() => SearchAllScreen(typedKeyWords: searchController.text));
+      FocusScope.of(context).unfocus();
+    }
+
+    // categories component
+    Icon _getIconForIndex(int index) {
+      switch (index) {
+        case 0:
+          return Icon(Icons.chair);
+        case 1:
+          return Icon(Icons.light);
+        case 2:
+          return Icon(Icons.table_bar);
+        case 3:
+          return Icon(Icons.desk);
+        case 4:
+          return Icon(Icons.chair_alt);
+        case 5:
+          return Icon(Icons.kitchen);
+        case 6:
+          return Icon(Icons.tv_rounded);
+        case 7:
+          return Icon(Icons.kitchen_rounded);
+        default:
+          return Icon(Icons.error);
+      }
+    }
+
+    String _getTextForIndex(int index) {
+      switch (index) {
+        case 0:
+          return 'Sofa';
+        case 1:
+          return 'Lamp';
+        case 2:
+          return 'Desk';
+        case 3:
+          return 'Bed';
+        case 4:
+          return 'Chair';
+        case 5:
+          return 'Kitchen set';
+        case 6:
+          return 'Backdrop';
+        case 7:
+          return 'Cupboard';
+        default:
+          return 'Unknown';
+      }
+    }
+
+    void _navigateToPage(int index) {
+      switch (index) {
+        case 0:
+          Get.to(() => sofaScreen(),);
+          break;
+        case 1:
+          /* Get.to(() => FavoriteProductView()); */
+          break;
+        case 2:
+          Get.to(() => deskScreen());
+          break;
+        case 3:
+          //
+          break;
+        case 4:
+          //
+          break;
+        case 5:
+          //
+          break;
+        case 6:
+          //
+          break;
+        case 7:
+          break;
+      }
+    }
+    // categories componen-end
 
     return GetBuilder(
         init: CurrentUser(),
@@ -36,32 +115,29 @@ class HomeView extends GetView<HomeController> {
           return Scaffold(
             backgroundColor: Colors.grey.shade100,
             appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              title: Text(
-                "-MANDIRI FURNITURE-",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+                backgroundColor: Colors.white,
+                elevation: 0,
+                title: Text(
+                  "-MANDIRI FURNITURE-",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins'
+                  ),
                 ),
-              ),
-              centerTitle: true,
-             automaticallyImplyLeading: false
-            ),
+                centerTitle: true,
+                automaticallyImplyLeading: false),
             body: Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              padding: const EdgeInsets.all(0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                      ),
+                      color: Colors.white,
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.all(13.0),
@@ -89,13 +165,15 @@ class HomeView extends GetView<HomeController> {
                                 child: TextField(
                                   controller: searchController,
                                   onSubmitted: (value) {
-                                    /* _performSearch(); */
+                                    _performSearch();
                                   },
                                   decoration: InputDecoration(
                                     hintText: 'Search',
                                     prefixIcon: IconButton(
                                         onPressed: () {
-                                          /* Get.to(() => SearchItems(typedKeyWords : searchController.text)); */
+                                          Get.to(() => SearchAllScreen(
+                                              typedKeyWords:
+                                                  searchController.text));
                                         },
                                         icon: Icon(
                                           Icons.search_rounded,
@@ -122,53 +200,66 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
 
                     // ListView Horizontal (Newest product)
                     Container(
+                      color: Colors.white,
                       width: double.infinity,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 13, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        padding: const EdgeInsets.only(left: 13, right: 13),
+                        child: Column(
                           children: [
-                            Text(
-                              "Newest",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "See all",
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Newest",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.orangeAccent),
-                                ))
+                                      fontSize: 18),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Get.to(() => SearchAllScreen(
+                                        typedKeyWords: searchController.text));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.orangeAccent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    minimumSize: Size(50.0, 25.0),
+                                  ),
+                                  child: Text(
+                                    "See all",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            allNewestProducts(context),
                           ],
                         ),
                       ),
                     ),
-                    allNewestProducts(context),
                     // listview horizontal (Newest product) end
 
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
 
                     /* List category  */
                     Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
-                        color: Colors.white,
-                      ),
+                      color: Colors.white,
                       width: double.infinity,
                       child: Padding(
                         padding:
-                            const EdgeInsets.only(left: 13, right: 10, top: 10),
+                            const EdgeInsets.only(left: 13, right: 10, top: 10, bottom: 5),
                         child: Text(
                           "Categories",
                           style: TextStyle(
@@ -177,12 +268,55 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                        color: Colors.white,
+                      color: Colors.white,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 10.0,
+                          ),
+                          itemCount: 8,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              children: [
+                                Center(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.orangeAccent,
+                                    ),
+                                    height: 50,
+                                    width: 50,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        _navigateToPage(index);
+                                      },
+                                      icon: _getIconForIndex(index),
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  _getTextForIndex(index),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
+                    ),
+
+                    /*  Container(
+                      color: Colors.white,
                       width: double.infinity,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -191,6 +325,8 @@ class HomeView extends GetView<HomeController> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                              
+                              // sofa
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -209,6 +345,8 @@ class HomeView extends GetView<HomeController> {
                               SizedBox(
                                 width: 10,
                               ),
+                              
+                              // lamp
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -227,6 +365,8 @@ class HomeView extends GetView<HomeController> {
                               SizedBox(
                                 width: 10,
                               ),
+
+                              // desk
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -245,6 +385,8 @@ class HomeView extends GetView<HomeController> {
                               SizedBox(
                                 width: 10,
                               ),
+
+                              // bed
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -263,6 +405,8 @@ class HomeView extends GetView<HomeController> {
                               SizedBox(
                                 width: 10,
                               ),
+
+                              // chair
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -281,6 +425,8 @@ class HomeView extends GetView<HomeController> {
                               SizedBox(
                                 width: 10,
                               ),
+
+                              // kitchen
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -291,7 +437,7 @@ class HomeView extends GetView<HomeController> {
                                   child: IconButton(
                                       onPressed: () {},
                                       icon: Icon(
-                                        Icons.chair,
+                                        Icons.kitchen,
                                         color: Colors.white,
                                       )),
                                 ),
@@ -299,6 +445,8 @@ class HomeView extends GetView<HomeController> {
                               SizedBox(
                                 width: 10,
                               ),
+
+                              // backdrop
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -309,14 +457,16 @@ class HomeView extends GetView<HomeController> {
                                   child: IconButton(
                                       onPressed: () {},
                                       icon: Icon(
-                                        Icons.light,
+                                        Icons.tv_rounded,
                                         color: Colors.white,
                                       )),
                                 ),
                               ),
-                              SizedBox(
+                               SizedBox(
                                 width: 10,
                               ),
+
+                              // cupboard
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
@@ -327,42 +477,48 @@ class HomeView extends GetView<HomeController> {
                                   child: IconButton(
                                       onPressed: () {},
                                       icon: Icon(
-                                        Icons.table_bar,
+                                        Icons.kitchen_rounded,
                                         color: Colors.white,
                                       )),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 10,
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    /* List category  */
+                     */ /* List category  */
 
                     SizedBox(
-                      height: 20,
+                      height: 5,
                     ),
 
                     /* Listview vertical (other product)*/
                     Container(
+                      color: Colors.white,
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 13, right: 10, bottom: 10),
-                        child: Text(
-                          "Other product",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                            left: 13, right: 10, bottom: 10, top: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Other product",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            otherProducts(context),
+                          ],
                         ),
                       ),
                     ),
-                    otherProducts(context),
                     /* Listview vertical (other product) end */
 
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                   ],
                 ),
               ),
@@ -371,7 +527,8 @@ class HomeView extends GetView<HomeController> {
             bottomNavigationBar: Container(
               color: Colors.white,
               child: Padding(
-                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
+                  padding:
+                      EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 8),
                   child: Container(
                     height: 50,
                     width: double.infinity,
@@ -441,8 +598,6 @@ class HomeView extends GetView<HomeController> {
           );
         });
   }
-
-  
 
   /* List newestProduct */
   Future<List<Products>> newestProduct() async {
@@ -523,7 +678,7 @@ class HomeView extends GetView<HomeController> {
           }
           if (dataSnapShot.data!.length > 0) {
             return SizedBox(
-              height: 325,
+              height: 300,
               child: ListView.builder(
                   itemCount: dataSnapShot.data!.length,
                   shrinkWrap: true,
@@ -532,7 +687,8 @@ class HomeView extends GetView<HomeController> {
                     Products eachProductsRecord = dataSnapShot.data![index];
                     return GestureDetector(
                       onTap: () {
-                        Get.to(() => ProductDetailView(productInfo: eachProductsRecord));
+                        Get.to(() =>
+                            ProductDetailView(productInfo: eachProductsRecord));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -589,7 +745,7 @@ class HomeView extends GetView<HomeController> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                           ),
-                                          maxLines: 2,
+                                          maxLines: 1,
                                         ),
                                         Text(
                                           eachProductsRecord
@@ -599,7 +755,7 @@ class HomeView extends GetView<HomeController> {
                                             color: Colors.grey[600],
                                           ),
                                           overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                         ),
                                       ],
                                     ),
@@ -662,7 +818,9 @@ class HomeView extends GetView<HomeController> {
             children: [
               SizedBox(width: 10),
               ShimmerHorizontal(),
-              SizedBox(width: MediaQuery.of(context).size.width * 0.04,),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.04,
+              ),
               ShimmerHorizontal(),
               SizedBox(width: 10),
             ],
@@ -703,17 +861,18 @@ class HomeView extends GetView<HomeController> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: MediaQuery.of(context).size.height * 0.38,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 10
-              ),
+                  crossAxisCount: 2,
+                  mainAxisExtent: MediaQuery.of(context).size.height * 0.37,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10),
               itemCount: dataSnapShot.data!.length,
               itemBuilder: (context, index) {
                 Products eachProductsRecord = dataSnapShot.data![index];
                 return GestureDetector(
                   onTap: () {
-                    Get.to(() => ProductDetailView(productInfo: eachProductsRecord,));
+                    Get.to(() => ProductDetailView(
+                          productInfo: eachProductsRecord,
+                        ));
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
@@ -725,7 +884,7 @@ class HomeView extends GetView<HomeController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              height: 170,
+                              height: 180,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 image: DecorationImage(
@@ -763,7 +922,7 @@ class HomeView extends GetView<HomeController> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
-                                    maxLines: 2,
+                                    maxLines: 1,
                                   ),
                                   Text(
                                     eachProductsRecord.product_description!,
@@ -772,7 +931,7 @@ class HomeView extends GetView<HomeController> {
                                       color: Colors.grey[600],
                                     ),
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
+                                    maxLines: 2,
                                   ),
                                 ],
                               ),

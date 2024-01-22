@@ -4,12 +4,16 @@ import '../modules/Login/bindings/login_binding.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/bag/bindings/bag_binding.dart';
 import '../modules/bag/views/bag_view.dart';
+import '../modules/checkout/bindings/checkout_binding.dart';
+import '../modules/checkout/views/checkout_view.dart';
 import '../modules/favoriteProduct/bindings/favorite_product_binding.dart';
 import '../modules/favoriteProduct/views/favorite_product_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/myAccount/bindings/my_account_binding.dart';
 import '../modules/myAccount/views/my_account_view.dart';
+import '../modules/myOrders/bindings/my_orders_binding.dart';
+import '../modules/myOrders/views/my_orders_view.dart';
 import '../modules/myProfile/bindings/my_profile_binding.dart';
 import '../modules/myProfile/views/my_profile_view.dart';
 import '../modules/signUp/bindings/sign_up_binding.dart';
@@ -56,5 +60,16 @@ class AppPages {
       page: () => const FavoriteProductView(),
       binding: FavoriteProductBinding(),
     ),
+    GetPage(
+      name: _Paths.MY_ORDERS,
+      page: () => const MyOrdersView(),
+      binding: MyOrdersBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHECKOUT,
+      page: () => const CheckoutView(),
+      binding: CheckoutBinding(),
+    ),
+   
   ];
 }
