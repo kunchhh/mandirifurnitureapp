@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
+import 'package:mandirifurnitureapp/app/modules/checkout/views/checkout_view.dart';
 import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
 import 'package:mandirifurnitureapp/app/modules/productDetail/views/product_detail_view.dart';
 import 'package:mandirifurnitureapp/model/products.dart';
@@ -150,7 +152,8 @@ class BagView extends GetView<BagController> {
           elevation: 0,
           title: Text(
             " Bag",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style:
+                TextStyle(fontWeight: FontWeight.w400, fontFamily: "Poppins"),
           ),
           automaticallyImplyLeading: false,
           actions: [
@@ -200,336 +203,334 @@ class BagView extends GetView<BagController> {
           padding: const EdgeInsets.only(top: 5),
           child: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
-            return Obx(
-              () => bagListController.bagList.length > 0
-                  ? ListView.builder(
-                      itemCount: bagListController.bagList.length,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        Bag bagModel = bagListController.bagList[index];
+            return Obx(() => bagListController.bagList.length > 0
+                ? ListView.builder(
+                    itemCount: bagListController.bagList.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      Bag bagModel = bagListController.bagList[index];
 
-                        Products productsModel = Products(
-                          product_id: bagModel.bag_product_id,
-                          product_name: bagModel.product_name,
-                          product_category: bagModel.product_category,
-                          product_color: bagModel.product_color,
-                          product_price: bagModel.product_price,
-                          product_description: bagModel.product_description,
-                          product_mainImage: bagModel.product_mainImage,
-                          product_Image1: bagModel.product_Image1,
-                          product_Image2: bagModel.product_Image2,
-                        );
+                      Products productsModel = Products(
+                        product_id: bagModel.bag_product_id,
+                        product_name: bagModel.product_name,
+                        product_category: bagModel.product_category,
+                        product_color: bagModel.product_color,
+                        product_price: bagModel.product_price,
+                        product_description: bagModel.product_description,
+                        product_mainImage: bagModel.product_mainImage,
+                        product_Image1: bagModel.product_Image1,
+                        product_Image2: bagModel.product_Image2,
+                      );
 
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: Row(
-                            children: [
-                              GetBuilder(
-                                  init: BagController(),
-                                  builder: (c) {
-                                    return IconButton(
-                                      icon: Icon(
-                                          bagListController.selectedProductList
-                                                  .contains(bagModel.bag_id)
-                                              ? Icons.check_box
-                                              : Icons
-                                                  .check_box_outline_blank_rounded,
-                                          color: bagListController.isSelectedAll
-                                              ? Colors.black
-                                              : Colors.black),
-                                      onPressed: () {
-                                        if (bagListController
-                                            .selectedProductList
-                                            .contains(bagModel.bag_id)) {
-                                          bagListController
-                                              .deleteSelectedProduct(
-                                                  bagModel.bag_id!);
-                                        } else {
-                                          bagListController.addSelectedProduct(
-                                              bagModel.bag_id!);
-                                        }
-                                        calculateTotalAmount();
-                                      },
-                                    );
-                                  }),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => ProductDetailView(
-                                      productInfo: productsModel));
-                                },
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      child: Card(
-                                        color: Colors.white,
-                                        elevation: 0,
-                                        child: Container(
-                                          height: 140,
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10.0),
-                                                    bottomLeft:
-                                                        Radius.circular(10.0),
-                                                  ),
-                                                  child: Container(
-                                                    width: 125,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.fill,
-                                                        image: NetworkImage(bagModel
-                                                            .product_mainImage!),
-                                                      ),
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          children: [
+                            GetBuilder(
+                                init: BagController(),
+                                builder: (c) {
+                                  return IconButton(
+                                    icon: Icon(
+                                        bagListController.selectedProductList
+                                                .contains(bagModel.bag_id)
+                                            ? Icons.check_box
+                                            : Icons
+                                                .check_box_outline_blank_rounded,
+                                        color: bagListController.isSelectedAll
+                                            ? Colors.black
+                                            : Colors.black),
+                                    onPressed: () {
+                                      if (bagListController.selectedProductList
+                                          .contains(bagModel.bag_id)) {
+                                        bagListController.deleteSelectedProduct(
+                                            bagModel.bag_id!);
+                                      } else {
+                                        bagListController.addSelectedProduct(
+                                            bagModel.bag_id!);
+                                      }
+                                      calculateTotalAmount();
+                                    },
+                                  );
+                                }),
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => ProductDetailView(
+                                    productInfo: productsModel));
+                              },
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: Card(
+                                      color: Colors.white,
+                                      elevation: 0,
+                                      child: Container(
+                                        height: 140,
+                                        child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(10.0),
+                                                  bottomLeft:
+                                                      Radius.circular(10.0),
+                                                ),
+                                                child: Container(
+                                                  width: 125,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: NetworkImage(bagModel
+                                                          .product_mainImage!),
                                                     ),
                                                   ),
                                                 ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.4,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        // product name
-                                                        Text(
-                                                          "${bagModel.product_name}",
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
+                                              ),
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.4,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      // product name
+                                                      Text(
+                                                        "${bagModel.product_name}",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
-                                                        // product name end
-                                                       
-                                                        // Price
-                                                        Text(
-                                                          "\I\D\R\. ${bagModel.product_price}",
-                                                          style: TextStyle(
-                                                            color: Colors
-                                                                .deepOrange
-                                                                .shade900,
-                                                            fontSize: 14,
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                      // product name end
+                                                      // Price
+                                                      Text(
+                                                        "\I\D\R\. " +
+                                                            NumberFormat
+                                                                .currency(
+                                                              locale: 'id_ID',
+                                                              symbol: '',
+                                                              decimalDigits: 0,
+                                                            ).format(bagModel
+                                                                .product_price),
+                                                        style: TextStyle(
+                                                          color: Colors
+                                                              .deepOrange
+                                                              .shade900,
+                                                          fontSize: 14,
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
-                                                        // Price end
+                                                      ),
+                                                      // Price end
 
-                                                        // set qty
-                                                        Container(
-                                                            height: 26,
-                                                            width: 122,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors
-                                                                  .orange[400],
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            ),
-                                                            child: Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  IconButton(
-                                                                    icon: Icon(
-                                                                        Icons
-                                                                            .remove,
-                                                                        color: Colors
-                                                                            .black,
-                                                                        size:
-                                                                            12),
-                                                                    onPressed:
-                                                                        () {
-                                                                      if (bagModel.bag_quantity! -
-                                                                              1 >=
-                                                                          1) {
-                                                                        updateQuantityInUserBag(
-                                                                            bagModel
-                                                                                .bag_id!,
-                                                                            bagModel.bag_quantity! -
-                                                                                1);
-                                                                      } else {
-                                                                        Get.snackbar(
-                                                                          "Error",
-                                                                          "Tidak boleh kurang dari 1",
-                                                                          backgroundColor: Colors
-                                                                              .grey
-                                                                              .shade100,
-                                                                        );
-                                                                      }
-                                                                    },
-                                                                  ),
-                                                                  Text(
-                                                                    bagModel
-                                                                        .bag_quantity
-                                                                        .toString(),
-                                                                    style:
-                                                                        TextStyle(
+                                                      // set qty
+                                                      Container(
+                                                          height: 26,
+                                                          width: 122,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .orange[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                          child: Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                IconButton(
+                                                                  icon: Icon(
+                                                                      Icons
+                                                                          .remove,
                                                                       color: Colors
                                                                           .black,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                  IconButton(
-                                                                    icon: Icon(
-                                                                        Icons
-                                                                            .add,
-                                                                        color: Colors
-                                                                            .black,
-                                                                        size:
-                                                                            12),
-                                                                    onPressed:
-                                                                        () {
+                                                                      size: 12),
+                                                                  onPressed:
+                                                                      () {
+                                                                    if (bagModel.bag_quantity! -
+                                                                            1 >=
+                                                                        1) {
                                                                       updateQuantityInUserBag(
                                                                           bagModel
                                                                               .bag_id!,
-                                                                          bagModel.bag_quantity! +
+                                                                          bagModel.bag_quantity! -
                                                                               1);
-                                                                    },
+                                                                    } else {
+                                                                      Get.snackbar(
+                                                                        "Error",
+                                                                        "Tidak boleh kurang dari 1",
+                                                                        backgroundColor: Colors
+                                                                            .grey
+                                                                            .shade100,
+                                                                      );
+                                                                    }
+                                                                  },
+                                                                ),
+                                                                Text(
+                                                                  bagModel
+                                                                      .bag_quantity
+                                                                      .toString(),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontFamily:
+                                                                        "Poppins",
+                                                                    fontSize:
+                                                                        14,
                                                                   ),
-                                                                ])),
-                                                        // set qty end
-                                                      ],
-                                                    ),
+                                                                ),
+                                                                IconButton(
+                                                                  icon: Icon(
+                                                                      Icons.add,
+                                                                      color: Colors
+                                                                          .black,
+                                                                      size: 12),
+                                                                  onPressed:
+                                                                      () {
+                                                                    updateQuantityInUserBag(
+                                                                        bagModel
+                                                                            .bag_id!,
+                                                                        bagModel.bag_quantity! +
+                                                                            1);
+                                                                  },
+                                                                ),
+                                                              ])),
+                                                      // set qty end
+                                                    ],
                                                   ),
                                                 ),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      QuickAlert.show(
-                                                        context: context,
-                                                        type: QuickAlertType
-                                                            .warning,
-                                                        confirmBtnText: "Yes",
-                                                        cancelBtnText: "No",
-                                                        showCancelBtn: true,
-                                                        showConfirmBtn: true,
-                                                        onCancelBtnTap: () =>
-                                                            Get.back(),
-                                                        onConfirmBtnTap: () =>
-                                                            deleteSelectedProductFromUserBagList(
-                                                                    bagModel
-                                                                        .bag_id!)
-                                                                .then(
-                                                                    (isDeleted) {
-                                                          if (isDeleted !=
-                                                              null) {
-                                                            setState(() {
-                                                              bagListController
-                                                                  .bagList
-                                                                  .remove(
-                                                                      bagModel);
-                                                              calculateTotalAmount();
-                                                            });
-                                                          }
-                                                          Get.back();
-                                                        }),
-                                                        confirmBtnColor:
-                                                            Colors.orangeAccent,
-                                                        title: "Delete",
-                                                        text:
-                                                            "Are you sure want to delete product from your bag?",
-                                                      );
-                                                    },
-                                                    icon: Icon(
-                                                        Icons.close_rounded))
-                                              ]),
-                                        ),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    QuickAlert.show(
+                                                      context: context,
+                                                      type: QuickAlertType
+                                                          .warning,
+                                                      confirmBtnText: "Yes",
+                                                      cancelBtnText: "No",
+                                                      showCancelBtn: true,
+                                                      showConfirmBtn: true,
+                                                      onCancelBtnTap: () =>
+                                                          Get.back(),
+                                                      onConfirmBtnTap: () =>
+                                                          deleteSelectedProductFromUserBagList(
+                                                                  bagModel
+                                                                      .bag_id!)
+                                                              .then(
+                                                                  (isDeleted) {
+                                                        if (isDeleted != null) {
+                                                          setState(() {
+                                                            bagListController
+                                                                .bagList
+                                                                .remove(
+                                                                    bagModel);
+                                                            calculateTotalAmount();
+                                                          });
+                                                        }
+                                                        Get.back();
+                                                      }),
+                                                      confirmBtnColor:
+                                                          Colors.orangeAccent,
+                                                      title: "Delete",
+                                                      text:
+                                                          "Are you sure want to delete product from your bag?",
+                                                    );
+                                                  },
+                                                  icon:
+                                                      Icon(Icons.close_rounded))
+                                            ]),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      })
-                  : Center(
-                      child: Container(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 200),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              "assets/content/surprised.png",
-                              width: 120.0,
-                              height: 120.0,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "Oooppss...",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "Your bag is empty",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Get.to(() => HomeView());
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.orange,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  minimumSize: Size(325.0, 50.0)),
-                              child: Text(
-                                'Start Shopping',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
+                                ],
                               ),
                             ),
                           ],
                         ),
+                      );
+                    })
+                : Center(
+                    child: Container(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/content/surprised.png",
+                            width: 120.0,
+                            height: 120.0,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Oooppss...",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Poppins",
+                                fontSize: 18),
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            "Your bag is empty",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: "Poppins",
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => HomeView());
+                            },
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.orange,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                minimumSize: Size(325.0, 50.0)),
+                            child: Text(
+                              'Start Shopping',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Poppins",
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    )),
-            );
+                    ),
+                  ));
           }),
         ),
 
@@ -570,7 +571,13 @@ class BagView extends GetView<BagController> {
                                   calculateTotalAmount();
                                 },
                               )),
-                          Text("Select all")
+                          Text(
+                            "Select all",
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 12,
+                            ),
+                          )
                         ],
                       ),
                       // select all button end
@@ -584,18 +591,23 @@ class BagView extends GetView<BagController> {
                                 "Total: ",
                                 style: TextStyle(
                                   color: Colors.black,
+                                  fontFamily: "Poppins",
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Obx(() => Text(
                                     "\I\D\R\. " +
-                                        bagListController.total
-                                            .toStringAsFixed(0),
+                                        NumberFormat.currency(
+                                          locale: 'id_ID',
+                                          symbol: '',
+                                          decimalDigits: 0,
+                                        ).format(bagListController.total),
                                     maxLines: 1,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
+                                      fontFamily: "Poppins",
                                       color: Colors.deepOrange.shade900,
                                     ),
                                   )),
@@ -603,18 +615,40 @@ class BagView extends GetView<BagController> {
                                 width: 10,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                child: Text(
+                                  'Checkout',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: "Poppins",
+                                      color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  bagListController.selectedProductList.length >
+                                          0
+                                      ? Get.to(
+                                          () => CheckoutView(
+                                            selectedProductListInfo:
+                                                getSelectedBagListProductsInformation(),
+                                            subtotalProduct:
+                                                bagListController.total,
+                                            selectedBagIDs: bagListController
+                                                .selectedProductList,
+                                          ),
+                                          transition: Transition.rightToLeft,
+                                          duration: Duration(milliseconds: 300),
+                                        )
+                                      : null;
+                                },
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.orange,
+                                  primary: bagListController
+                                              .selectedProductList.length >
+                                          0
+                                      ? Colors.orange
+                                      : Colors.grey.shade400,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   minimumSize: Size(100, 35),
-                                ),
-                                child: Text(
-                                  'Checkout',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.white),
                                 ),
                               )
                             ],

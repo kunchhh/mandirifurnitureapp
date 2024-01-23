@@ -129,6 +129,8 @@ class SignUpView extends GetView<SignUpController> {
                       "  Sign Up!",
                       style: TextStyle(
                           fontSize: 32,
+                    fontFamily: "Poppins",
+
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
@@ -147,9 +149,9 @@ class SignUpView extends GetView<SignUpController> {
                           labelText: 'Full name',
                           labelStyle: TextStyle(
                             color: Colors.grey,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w200,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -181,9 +183,9 @@ class SignUpView extends GetView<SignUpController> {
                           labelText: 'Email',
                           labelStyle: TextStyle(
                             color: Colors.grey,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w200,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -216,9 +218,9 @@ class SignUpView extends GetView<SignUpController> {
                           labelText: 'Password',
                           labelStyle: TextStyle(
                             color: Colors.grey,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w200,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -250,9 +252,9 @@ class SignUpView extends GetView<SignUpController> {
                           labelText: 'Phone number',
                           labelStyle: TextStyle(
                             color: Colors.grey,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w200,
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -282,9 +284,9 @@ class SignUpView extends GetView<SignUpController> {
                               labelText: 'Date of birthday',
                               labelStyle: TextStyle(
                                 color: Colors.grey,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w200,
                               ),
                               hintText: ("MM-dd-yy"),
                               hintStyle: TextStyle(color: Colors.black),

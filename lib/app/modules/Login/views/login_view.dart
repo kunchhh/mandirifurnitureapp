@@ -16,7 +16,6 @@ class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    
     final _formKey = GlobalKey<FormState>();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -35,23 +34,23 @@ class LoginView extends GetView<LoginController> {
         if (res.statusCode == 200) {
           var resBodyOfLogin = jsonDecode(res.body);
           if (resBodyOfLogin['success'] == true) {
-
             Get.snackbar("Success", "You're logged-in successfully",
                 backgroundColor: Colors.green, colorText: Colors.white);
 
             User userInfo = User.fromJson(resBodyOfLogin["userData"]);
             await RememberUserPrefs.storeUserInfo(userInfo);
             Future.delayed(Duration(milliseconds: 2000), () {
-             Get.off(() => HomeView());
+              Get.off(() => HomeView());
             });
           } else {
-
-            Get.snackbar("Incorrect Credentials.", "Please write correct password or email and Try Again.",
-                backgroundColor: Colors.yellow.shade700, colorText: Colors.white);
+            Get.snackbar("Incorrect Credentials.",
+                "Please write correct password or email and Try Again.",
+                backgroundColor: Colors.yellow.shade700,
+                colorText: Colors.white);
           }
         } else {
           Get.snackbar("Error", "Status is not 200",
-                backgroundColor: Colors.black, colorText: Colors.white);
+              backgroundColor: Colors.black, colorText: Colors.white);
         }
       } catch (errorMsg) {
         print("Error :: " + errorMsg.toString());
@@ -73,7 +72,8 @@ class LoginView extends GetView<LoginController> {
               child: Text(
                 "Welcome",
                 style: TextStyle(
-                    fontSize: 48,
+                    fontSize: 40,
+                    fontFamily: "Poppins",
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -86,7 +86,8 @@ class LoginView extends GetView<LoginController> {
               child: Text(
                 "Login\nFirst!",
                 style: TextStyle(
-                    fontSize: 35,
+                    fontSize: 32,
+                    fontFamily: "Poppins",
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
@@ -148,7 +149,8 @@ class LoginView extends GetView<LoginController> {
                             'Sign In',
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 27,
+                                fontSize: 24,
+                                fontFamily: "Poppins",
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -172,29 +174,23 @@ class LoginView extends GetView<LoginController> {
                       ),
                       Row(
                         children: [
+                          Text(
+                            "Don't have an account?",
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 14
+                            ),
+                          ),
                           TextButton(
                             onPressed: () {
                               Get.to(() => SignUpView());
                             },
                             child: Text(
-                              'Sign Up',
+                              'Sign Up!',
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: Colors.lightBlue,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.lightBlue,
+                                  fontFamily: "Poppins",
                                   fontWeight: FontWeight.bold),
                             ),
                           )

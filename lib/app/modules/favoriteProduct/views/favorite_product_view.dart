@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import '../../../../model/favoriteProduct.dart';
 import '../../../../model/products.dart';
@@ -56,13 +57,13 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
       appBar: AppBar(
         title: const Text(
           ' Favorite',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          style: TextStyle(fontWeight: FontWeight.w400, fontFamily: "Poppins"),
         ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+        padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           child: FutureBuilder(
             future: getCurrentUserFavoriteList(),
@@ -110,16 +111,14 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
               }
               if (dataSnapShot.data!.length > 0) {
                 return Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10,),
-                  child: GridView.builder(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                  ),
+                  child: ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent:
-                            MediaQuery.of(context).size.height * 0.38,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 10),
+                    scrollDirection: Axis.vertical,
                     itemCount: dataSnapShot.data!.length,
                     itemBuilder: (context, index) {
                       Favorite eachFavoriteProductRecord =
@@ -145,82 +144,113 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
 
                       return GestureDetector(
                         onTap: () {
-                          Get.to(() => ProductDetailView(
-                                productInfo: productsModel,
-                              ));
+                          Get.to(() =>
+                              ProductDetailView(productInfo: productsModel));
                         },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: Card(
-                            child: Container(
-                              color: Colors.white,
-                              width: 150,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    height: 170,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage(
-                                          eachFavoriteProductRecord
-                                              .product_mainImage!,
-                                        ),
-                                      ),
-                                    ),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: Card(
+                                elevation: 0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
                                   ),
-                                  SizedBox(height: 10),
-                                  Container(
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 5),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "\I\D\R\. ${eachFavoriteProductRecord.product_price}",
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                                color:
-                                                    Colors.deepOrange.shade900,
+                                  height: 140,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 125,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            bottomLeft: Radius.circular(10),
+                                          ),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              image: DecorationImage(
+                                                fit: BoxFit.fill,
+                                                image: NetworkImage(
+                                                  eachFavoriteProductRecord
+                                                      .product_mainImage!,
+                                                ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        Text(
-                                          eachFavoriteProductRecord
-                                              .product_name!,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
+                                            width: 125,
                                           ),
-                                          maxLines: 2,
                                         ),
-                                        Text(
-                                          eachFavoriteProductRecord
-                                              .product_description!,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey[600],
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                // product name
+                                                Text(
+                                                  "${eachFavoriteProductRecord.product_name}",
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                // product name end
+                                                // product description
+                                                Text(
+                                                  "${eachFavoriteProductRecord.product_description}",
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 12,
+                                                    fontFamily: 'Poppins',
+                                                  ),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                // product description end
+                                                // Price
+                                                Text(
+                                                  "\I\D\R\. " +
+                                                      NumberFormat.currency(
+                                                        locale: 'id_ID',
+                                                        symbol: '',
+                                                        decimalDigits: 0,
+                                                      ).format(
+                                                          eachFavoriteProductRecord
+                                                              .product_price),
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .deepOrange.shade900,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                // Price end
+                                              ],
+                                            ),
                                           ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       );
                     },
@@ -229,9 +259,11 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
               } else {
                 return Center(
                   child: Container(
-                    margin: EdgeInsets.only(top: 100),
+                    margin: EdgeInsets.only(top: 200),
                     width: double.infinity,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
                           "assets/content/surprised.png",
@@ -241,18 +273,19 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
                         ),
                         SizedBox(height: 20),
                         Text(
-                          "Connection problem!",
+                          "Oooooppppsssss!",
                           style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Poppins",
+                              fontSize: 18),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          "No data product",
+                          "Your favorite product is empty",
                           style: TextStyle(
                             color: Colors.grey,
+                            fontFamily: "Poppins",
                           ),
                           textAlign: TextAlign.center,
                         )

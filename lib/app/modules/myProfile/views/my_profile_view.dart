@@ -39,12 +39,11 @@ class MyProfileView extends GetView<MyProfileController> {
           var responseBody = jsonDecode(res.body);
 
           if (responseBody["success"] == true) {
-
             QuickAlert.show(
-              context: context,
-              type: QuickAlertType.success,
-              text: 'Update profile successfully!',
-            );
+                context: context,
+                type: QuickAlertType.success,
+                text: 'Update profile successfully!',
+                confirmBtnColor: Colors.orange);
 
             RememberUserPrefs.updateUserInfo(_currentUser.user).then((value) {
               _currentUser.user.user_fullName = user.user_fullName;
@@ -60,28 +59,28 @@ class MyProfileView extends GetView<MyProfileController> {
             return true;
           } else {
             QuickAlert.show(
-              context: context,
-              type: QuickAlertType.error,
-              title: 'Oops...',
-              text: 'Sorry, Failed to update',
-            );
+                context: context,
+                type: QuickAlertType.error,
+                title: 'Oops...',
+                text: 'Sorry, Failed to update',
+                confirmBtnColor: Colors.orange);
             return false;
           }
         } else {
           QuickAlert.show(
-            context: context,
-            type: QuickAlertType.warning,
-            text: 'Status code is not 200',
-          );
+              context: context,
+              type: QuickAlertType.warning,
+              text: 'Status code is not 200',
+              confirmBtnColor: Colors.orange);
           return false;
         }
       } catch (errorMessage) {
         print("Error: $errorMessage");
         QuickAlert.show(
-          context: context,
-          type: QuickAlertType.warning,
-          text: '$errorMessage',
-        );
+            context: context,
+            type: QuickAlertType.warning,
+            text: '$errorMessage',
+            confirmBtnColor: Colors.orange);
         return false;
       }
     }
@@ -94,14 +93,15 @@ class MyProfileView extends GetView<MyProfileController> {
         },
         builder: (controller) {
           return Scaffold(
+              backgroundColor: Colors.grey.shade100,
               appBar: AppBar(
-                backgroundColor: Colors.transparent,
+                backgroundColor: Colors.white,
                 elevation: 0,
                 title: const Text(
                   'My profile',
-                  style: TextStyle(color: Colors.black),
+                  style:
+                TextStyle(fontWeight: FontWeight.w400, fontFamily: "Poppins"),
                 ),
-                centerTitle: true,
                 leading: IconButton(
                     onPressed: () {
                       Get.back();
@@ -123,243 +123,281 @@ class MyProfileView extends GetView<MyProfileController> {
                       "Save",
                       style: TextStyle(
                         color: Colors.yellow.shade800,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins"
                       ),
                     ),
                   ),
                 ],
               ),
               body: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(0),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 76,
-                                  height: 76,
-                                  decoration: ShapeDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://via.placeholder.com/76x76"),
-                                      fit: BoxFit.fill,
-                                    ),
-                                    shape: OvalBorder(
-                                      side: BorderSide(
-                                          width: 1, color: Color(0xFFEEEEEE)),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            color: Colors.white,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    width: 76,
+                                    height: 76,
+                                    decoration: ShapeDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/content/friendly.png"),
+                                        fit: BoxFit.fill,
+                                      ),
+                                      shape: OvalBorder(
+                                        side: BorderSide(
+                                            width: 1, color: Color(0xFFEEEEEE)),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "Change photo",
-                                      style: TextStyle(
-                                          color: Colors.yellow.shade800),
-                                    ))
-                              ],
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 5,
                           ),
 
                           /* Form field */
 
-                          TextFormField(
-                            initialValue: _currentUser.user.user_fullName,
-                            onChanged: (value) {
-                              _currentUser.user.user_fullName = value;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Full name',
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 18,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
+                          Container(
+                            color: Colors.white,
+                            constraints: BoxConstraints(minHeight: 550),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    initialValue:
+                                        _currentUser.user.user_fullName,
+                                    onChanged: (value) {
+                                      _currentUser.user.user_fullName = value;
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Full name',
+                                      labelStyle: TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: 18,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      hintStyle: TextStyle(color: Colors.black),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFF5F5F5),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                    ),
+                                    validator: (value) {
+                                      RegExp regex = RegExp(r'^.{3,}$');
+                                      if (value!.isEmpty) {
+                                        return ("User name Cannot Be Empty");
+                                      }
+                                      if (!regex.hasMatch(value)) {
+                                        return ("Enter Valid User name(Min. 3 Character)");
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    initialValue: _currentUser.user.user_email,
+                                    onChanged: (value) {
+                                      _currentUser.user.user_email = value;
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Email',
+                                      labelStyle: TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: 18,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      hintStyle: TextStyle(color: Colors.black),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFF5F5F5),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return ("Please Enter Your Email");
+                                      }
+                                      if (!RegExp(
+                                              "^[a-zA-z0-9+_.-]+@[[a-zA-z0-9.-]+.[a-z]")
+                                          .hasMatch(value)) {
+                                        return ("Please Enter a valid email");
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    initialValue:
+                                        _currentUser.user.user_id_phoneNumber,
+                                    onChanged: (value) {
+                                      _currentUser.user.user_id_phoneNumber =
+                                          value;
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Phone number',
+                                      labelStyle: TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: 18,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      hintStyle: TextStyle(color: Colors.black),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFF5F5F5),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                    ),
+                                    validator: (value) {
+                                      RegExp regex =
+                                          RegExp(r'(^(?:[+0]9)?[0-9]{11,12}$)');
+                                      if (value!.isEmpty) {
+                                        return "Phone Number Cannot Be Empty";
+                                      } else if (!regex.hasMatch(value)) {
+                                        return 'Please Enter Valid Phone Number (Min. 11 Character)';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  DateTimeFormField(
+                                    initialValue:
+                                        _currentUser.user.user_dateOfBirth !=
+                                                null
+                                            ? DateTime.parse(_currentUser
+                                                .user.user_dateOfBirth
+                                                .toString())
+                                            : null,
+                                    decoration: InputDecoration(
+                                      labelText: 'Date of birthday',
+                                      labelStyle: TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: 18,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      hintStyle: TextStyle(color: Colors.black),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFF5F5F5),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                    ),
+                                    mode: DateTimeFieldPickerMode.date,
+                                    validator: (value) {
+                                      if (value == null) {
+                                        return 'Date of birthday cannot be empty';
+                                      }
+                                      return null;
+                                    },
+                                    onDateSelected: (DateTime value) {
+                                      _currentUser.user.user_dateOfBirth =
+                                          value.toString();
+                                    },
+                                  ),
+                                ],
                               ),
-                              hintStyle: TextStyle(color: Colors.black),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                              ),
-                              filled: true,
-                              fillColor: Color(0xFFF5F5F5),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
                             ),
-                            validator: (value) {
-                              RegExp regex = RegExp(r'^.{3,}$');
-                              if (value!.isEmpty) {
-                                return ("User name Cannot Be Empty");
-                              }
-                              if (!regex.hasMatch(value)) {
-                                return ("Enter Valid User name(Min. 3 Character)");
-                              }
-                              return null;
-                            },
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            initialValue: _currentUser.user.user_email,
-                            onChanged: (value) {
-                              _currentUser.user.user_email = value;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 18,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                              ),
-                              hintStyle: TextStyle(color: Colors.black),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                              ),
-                              filled: true,
-                              fillColor: Color(0xFFF5F5F5),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return ("Please Enter Your Email");
-                              }
-                              if (!RegExp(
-                                      "^[a-zA-z0-9+_.-]+@[[a-zA-z0-9.-]+.[a-z]")
-                                  .hasMatch(value)) {
-                                return ("Please Enter a valid email");
-                              }
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            initialValue: _currentUser.user.user_id_phoneNumber,
-                            onChanged: (value) {
-                              _currentUser.user.user_id_phoneNumber = value;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Phone number',
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 18,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                              ),
-                              hintStyle: TextStyle(color: Colors.black),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                              ),
-                              filled: true,
-                              fillColor: Color(0xFFF5F5F5),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                            ),
-                            validator: (value) {
-                              RegExp regex =
-                                  RegExp(r'(^(?:[+0]9)?[0-9]{11,12}$)');
-                              if (value!.isEmpty) {
-                                return "Phone Number Cannot Be Empty";
-                              } else if (!regex.hasMatch(value)) {
-                                return 'Please Enter Valid Phone Number (Min. 11 Character)';
-                              }
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          DateTimeFormField(
-                            initialValue:
-                                _currentUser.user.user_dateOfBirth != null
-                                    ? DateTime.parse(_currentUser
-                                        .user.user_dateOfBirth
-                                        .toString())
-                                    : null,
-                            decoration: InputDecoration(
-                              labelText: 'Date of birthday',
-                              labelStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 18,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                              ),
-                              hintStyle: TextStyle(color: Colors.black),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide:
-                                    BorderSide(color: Colors.transparent),
-                              ),
-                              filled: true,
-                              fillColor: Color(0xFFF5F5F5),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                            ),
-                            mode: DateTimeFieldPickerMode.date,
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Date of birthday cannot be empty';
-                              }
-                              return null;
-                            },
-                            onDateSelected: (DateTime value) {
-                              _currentUser.user.user_dateOfBirth =
-                                  value.toString();
-                            },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-
+    
                           /* Form Field End */
                         ]),
                   ),
