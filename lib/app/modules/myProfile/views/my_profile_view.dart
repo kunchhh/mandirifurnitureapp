@@ -98,11 +98,9 @@ class MyProfileView extends GetView<MyProfileController> {
                 backgroundColor: Colors.white,
                 elevation: 0,
                 title: const Text(
-                  'my profile',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  'My profile',
+                  style:
+                TextStyle(fontWeight: FontWeight.w400, fontFamily: "Poppins"),
                 ),
                 leading: IconButton(
                     onPressed: () {
@@ -125,7 +123,8 @@ class MyProfileView extends GetView<MyProfileController> {
                       "Save",
                       style: TextStyle(
                         color: Colors.yellow.shade800,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins"
                       ),
                     ),
                   ),
@@ -168,13 +167,6 @@ class MyProfileView extends GetView<MyProfileController> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  /* TextButton(
-                                      onPressed: () {},
-                                      child: Text(
-                                        "Change photo",
-                                        style: TextStyle(
-                                            color: Colors.white),
-                                      )) */
                                 ],
                               ),
                             ),

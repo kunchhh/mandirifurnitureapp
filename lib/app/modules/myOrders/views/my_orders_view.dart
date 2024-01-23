@@ -7,6 +7,7 @@ import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import 'package:mandirifurnitureapp/app/modules/myAccount/views/my_account_view.dart';
 import 'package:mandirifurnitureapp/app/modules/myOrders/views/detail_order_onProcess.dart';
 import 'package:mandirifurnitureapp/app/modules/myOrders/views/history_order_screen.dart';
+import 'package:mandirifurnitureapp/app/widgets/Shimmer_v2.dart';
 import '../../../../model/order.dart';
 import '../../../../usePreferences/currentUser.dart';
 import '../controllers/my_orders_controller.dart';
@@ -56,64 +57,80 @@ class MyOrdersView extends GetView<MyOrdersController> {
     // display order on process
     Widget displayOrdersList(context) {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.7,
+        height: MediaQuery.of(context).size.height * 0.715,
         child: FutureBuilder(
           future: getCurrentUserOrdersList(),
           builder: (context, AsyncSnapshot<List<Order>> dataSnapshot) {
             if (dataSnapshot.connectionState == ConnectionState.waiting) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text(
-                      "Connection Waiting...",
-                      style: TextStyle(
-                        color: Colors.black,
+              return Container(
+                width: double.infinity,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ShimmerV2(),
+                      SizedBox(
+                        height: 5,
                       ),
-                    ),
+                      ShimmerV2(),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      ShimmerV2(),
+                    ],
                   ),
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
+                ),
               );
             }
-
             if (dataSnapshot.data == null) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text(
-                      "No orders found yet...",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
+              return Center(
+                  child: Container(
+                margin: EdgeInsets.only(top: 100),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/content/dissatisfied.png",
+                      width: 120.0,
+                      height: 120.0,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-              );
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "No product found!",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ));
             }
 
             if (dataSnapshot.data!.length > 0) {
               List<Order> orderList = dataSnapshot.data!;
 
               return ListView.separated(
-                padding: const EdgeInsets.all(5),
                 separatorBuilder: (context, index) {
                   return const Divider(
-                    height: 1,
-                    thickness: 1,
+                    height: 5,
+                    thickness: 5,
+                    color: Colors.transparent,
                   );
                 },
                 itemCount: orderList.length,
                 itemBuilder: (context, index) {
                   Order eachOrderData = orderList[index];
 
-                  return Card(
+                  return Container(
+                    color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -143,9 +160,10 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                           child: Text(
                                             "On process",
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Poppins",
                                                 color: Colors.grey.shade50,
-                                                fontSize: 14),
+                                                fontSize: 12),
                                           ),
                                         ),
                                       ),
@@ -154,7 +172,8 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                         "See detail",
                                         style: TextStyle(
                                             color: Colors.grey.shade700,
-                                            fontSize: 16),
+                                            fontFamily: "Poppins",
+                                            fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -169,7 +188,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
                           ),
                         ),
                         Card(
-                          color: Colors.transparent,
+                          color: Colors.white,
                           elevation: 0,
                           child: Container(
                             padding: EdgeInsets.only(bottom: 10),
@@ -186,27 +205,32 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                     "Order ID # " +
                                         eachOrderData.order_id.toString(),
                                     style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Poppins"),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     "Total Amount: ",
                                     style: const TextStyle(
-                                      fontSize: 12,
-                                    ),
+                                        fontSize: 12, fontFamily: "Poppins"),
                                   ),
+                                  SizedBox(height: 5),
                                   Text(
-                                    "\I\D\R. " +
-                                        eachOrderData.totalAmount!
-                                            .toStringAsFixed(0),
+                                    "\I\D\R\. " +
+                                        NumberFormat.currency(
+                                          locale: 'id_ID',
+                                          symbol: '',
+                                          decimalDigits: 0,
+                                        ).format(eachOrderData.totalAmount),
                                     style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Color.fromARGB(255, 191, 54, 12),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 191, 54, 12),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Poppins"),
                                   ),
                                 ],
                               ),
@@ -250,22 +274,41 @@ class MyOrdersView extends GetView<MyOrdersController> {
                 },
               );
             } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text(
-                      "Nothing to show...",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
+              return Center(
+                  child: Container(
+                margin: EdgeInsets.only(top: 100),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/content/surprised.png",
+                      width: 120.0,
+                      height: 120.0,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-              );
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Oooopppsssss!",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Poppins",
+                          fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "Empty, lets buy something",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontFamily: "Poppins",
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ));
             }
           },
         ),
@@ -306,72 +349,89 @@ class MyOrdersView extends GetView<MyOrdersController> {
     // display order in delivery
     Widget displayOrderInDelivery(context) {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.7, // Set a fixed height
+        height: MediaQuery.of(context).size.height * 0.715,
         child: FutureBuilder(
           future: getOrderInDelivery(),
           builder: (context, AsyncSnapshot<List<Order>> dataSnapshot) {
             if (dataSnapshot.connectionState == ConnectionState.waiting) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text(
-                      "Connection Waiting...",
-                      style: TextStyle(
-                        color: Colors.black,
+              return Container(
+                width: double.infinity,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ShimmerV2(),
+                      SizedBox(
+                        height: 5,
                       ),
-                    ),
+                      ShimmerV2(),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      ShimmerV2(),
+                    ],
                   ),
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
+                ),
               );
             }
 
             if (dataSnapshot.data == null) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text(
-                      "No orders found yet...",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
+              return Center(
+                  child: Container(
+                margin: EdgeInsets.only(top: 100),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/content/dissatisfied.png",
+                      width: 120.0,
+                      height: 120.0,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-              );
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "No product found!",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ));
             }
 
             if (dataSnapshot.data!.length > 0) {
               List<Order> orderList = dataSnapshot.data!;
 
               return ListView.separated(
-                padding: const EdgeInsets.all(5),
                 separatorBuilder: (context, index) {
                   return const Divider(
-                    height: 1,
-                    thickness: 1,
+                    height: 5,
+                    thickness: 5,
+                    color: Colors.transparent,
                   );
                 },
                 itemCount: orderList.length,
                 itemBuilder: (context, index) {
                   Order eachOrderData = orderList[index];
 
-                  return Card(
+                  return Container(
+                    color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ListTile(
                           onTap: () {
                             Get.to(() => detailOrderOnProcessScreen(
-                            clickedOrderInfo: eachOrderData,
-                          ));
+                                  clickedOrderInfo: eachOrderData,
+                                ));
                           },
                           title: Padding(
                             padding: const EdgeInsets.only(top: 10),
@@ -384,7 +444,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                     children: [
                                       Container(
                                         decoration: BoxDecoration(
-                                          color: Colors.grey.shade700,
+                                          color: Colors.grey.shade400,
                                           borderRadius:
                                               BorderRadius.circular(8),
                                         ),
@@ -393,19 +453,20 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                           child: Text(
                                             "In delivery",
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Poppins",
                                                 color: Colors.grey.shade50,
-                                                fontSize: 14),
+                                                fontSize: 12),
                                           ),
                                         ),
                                       ),
                                       SizedBox(width: 110),
-                                     
                                       Text(
                                         "See detail",
                                         style: TextStyle(
                                             color: Colors.grey.shade700,
-                                            fontSize: 16),
+                                            fontFamily: "Poppins",
+                                            fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -420,15 +481,15 @@ class MyOrdersView extends GetView<MyOrdersController> {
                           ),
                         ),
                         Card(
-                          color: Colors.transparent,
+                          color: Colors.white,
                           elevation: 0,
                           child: Container(
                             padding: EdgeInsets.only(bottom: 10),
                             child: ListTile(
                               onTap: () {
                                 Get.to(() => detailOrderOnProcessScreen(
-                                clickedOrderInfo: eachOrderData,
-                              ));
+                                      clickedOrderInfo: eachOrderData,
+                                    ));
                               },
                               title: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -437,27 +498,32 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                     "Order ID # " +
                                         eachOrderData.order_id.toString(),
                                     style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Poppins"),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     "Total Amount: ",
                                     style: const TextStyle(
-                                      fontSize: 12,
-                                    ),
+                                        fontSize: 12, fontFamily: "Poppins"),
                                   ),
+                                  SizedBox(height: 5),
                                   Text(
-                                    "\I\D\R. " +
-                                        eachOrderData.totalAmount!
-                                            .toStringAsFixed(0),
+                                    "\I\D\R\. " +
+                                        NumberFormat.currency(
+                                          locale: 'id_ID',
+                                          symbol: '',
+                                          decimalDigits: 0,
+                                        ).format(eachOrderData.totalAmount),
                                     style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Color.fromARGB(255, 191, 54, 12),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 14,
+                                        color: Color.fromARGB(255, 191, 54, 12),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Poppins"),
                                   ),
                                 ],
                               ),
@@ -501,22 +567,41 @@ class MyOrdersView extends GetView<MyOrdersController> {
                 },
               );
             } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text(
-                      "Nothing to show...",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
+              return Center(
+                  child: Container(
+                margin: EdgeInsets.only(top: 100),
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/content/surprised.png",
+                      width: 120.0,
+                      height: 120.0,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-              );
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Oooopppsssss!",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Poppins",
+                          fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "Empty, lets buy something",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontFamily: "Poppins",
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ));
             }
           },
         ),
@@ -526,7 +611,15 @@ class MyOrdersView extends GetView<MyOrdersController> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: const Text('-MANDIRI FURNITURE-'),
+        backgroundColor: Colors.white,
+        title: Text(
+          "- MANDIRI FURNITURE -",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Poppins',
+          ),
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -569,6 +662,8 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                 "My orders",
                                 style: TextStyle(
                                   color: Colors.black,
+                                  fontFamily: "Poppins",
+                                  fontWeight: FontWeight.w400,
                                   fontSize: 14,
                                 ),
                               ),
@@ -576,6 +671,8 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                 "See orders history",
                                 style: TextStyle(
                                   color: Colors.grey.shade700,
+                                  fontFamily: "Poppins",
+                                  fontWeight: FontWeight.w400,
                                   fontSize: 14,
                                 ),
                               ),
@@ -629,12 +726,11 @@ class MyOrdersView extends GetView<MyOrdersController> {
                               Text(
                                 'On Process',
                                 style: TextStyle(
-                                  color: _currentPageIndex == 0
-                                      ? Colors.yellow.shade700
-                                      : Colors.grey.shade700,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    color: _currentPageIndex == 0
+                                        ? Colors.yellow.shade700
+                                        : Colors.grey.shade700,
+                                    fontSize: 14,
+                                    fontFamily: "Poppins"),
                               ),
                             ],
                           ),
@@ -673,12 +769,11 @@ class MyOrdersView extends GetView<MyOrdersController> {
                               Text(
                                 'In Delivery',
                                 style: TextStyle(
-                                  color: _currentPageIndex == 1
-                                      ? Colors.yellow.shade700
-                                      : Colors.grey.shade700,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    color: _currentPageIndex == 1
+                                        ? Colors.yellow.shade700
+                                        : Colors.grey.shade700,
+                                    fontSize: 14,
+                                    fontFamily: "Poppins"),
                               ),
                             ],
                           ),
@@ -688,7 +783,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 3,
                 ),
                 ExpandablePageView(
                   controller: _pageController,
@@ -699,18 +794,11 @@ class MyOrdersView extends GetView<MyOrdersController> {
                   },
                   children: [
                     // Page 1: On Process
-                    Container(
-                        color: Colors.white,
-                        width: double.infinity,
-                        child: Expanded(child: displayOrdersList(context))),
+                    Expanded(child: displayOrdersList(context)),
                     // Page 2: In Delivery
-                    Container(
-                      color: Colors.white,
-                      width: double.infinity,
-                      child: Expanded(
+                     Expanded(
                         child: displayOrderInDelivery(context),
                       ),
-                    )
                   ],
                 ),
               ],

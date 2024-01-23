@@ -3,15 +3,9 @@ import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/app/modules/myOrders/views/my_orders_view.dart';
 
 class successScreen extends StatefulWidget {
-  final List<int>? selectedBagIDs;
-  final List<Map<String, dynamic>>? selectedProductListInfo;
-  final double? totalAmount;
-
+  
   const successScreen({
     super.key,
-    this.selectedBagIDs,
-    this.selectedProductListInfo,
-    this.totalAmount,
   });
 
   @override

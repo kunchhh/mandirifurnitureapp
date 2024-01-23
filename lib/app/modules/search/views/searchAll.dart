@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import 'package:mandirifurnitureapp/model/products.dart';
 
@@ -30,31 +31,39 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: showSearchBarWidget(),
-        titleSpacing: 0,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+        backgroundColor: Colors.grey.shade100,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: showSearchBarWidget(),
+          titleSpacing: 0,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              searchController.text.isEmpty ? otherProducts(context) : searchProductCard(context)
-            ],
+        body: SingleChildScrollView(
+          child: Container(
+            constraints: BoxConstraints(minHeight: 690),
+            margin: EdgeInsets.only(top: 5),
+            color: Colors.white,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  searchController.text.isEmpty
+                      ? otherProducts(context)
+                      : searchProductCard(context)
+                ],
+              ),
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
 
   Widget showSearchBarWidget() {
@@ -157,7 +166,7 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
         if (dataSnapShot.data == null) {
           return Center(
             child: Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: EdgeInsets.only(top: 200),
               width: double.infinity,
               child: Column(
                 children: [
@@ -171,10 +180,9 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
                   Text(
                     "No product found!",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: "Poppins"),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -234,7 +242,13 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "\I\D\R\. ${eachProductsRecord.product_price}",
+                                        "\I\D\R\. " +
+                                            NumberFormat.currency(
+                                              locale: 'id_ID',
+                                              symbol: '',
+                                              decimalDigits: 0,
+                                            ).format(eachProductsRecord
+                                                .product_price),
                                         maxLines: 1,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -276,6 +290,7 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
         } else {
           return Center(
             child: Container(
+              margin: EdgeInsets.only(top: 200),
               width: double.infinity,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -290,10 +305,9 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
                   Text(
                     "nothing found, try\nsomething else",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: "Poppins"),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -354,7 +368,7 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
         if (dataSnapShot.data == null) {
           return Center(
             child: Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: EdgeInsets.only(top: 200),
               width: double.infinity,
               child: Column(
                 children: [
@@ -368,10 +382,9 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
                   Text(
                     "No product found!",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: "Poppins"),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -381,46 +394,47 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
         }
         if (dataSnapShot.data!.length > 0) {
           return Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 0, right: 0),
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisExtent: MediaQuery.of(context).size.height * 0.37,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10),
+                  mainAxisExtent: MediaQuery.of(context).size.height * 0.35,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 0),
               itemCount: dataSnapShot.data!.length,
               itemBuilder: (context, index) {
                 Products eachProductsRecord = dataSnapShot.data![index];
                 return GestureDetector(
                   onTap: () {
-                    Get.to(() => ProductDetailView(
-                          productInfo: eachProductsRecord,
-                        ));
+                    Get.to(() =>
+                        ProductDetailView(productInfo: eachProductsRecord));
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: Card(
                       child: Container(
                         color: Colors.white,
-                        width: 150,
+                        width: 165,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              height: 180,
+                              height: 170,
+                              width: 250,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
                                   image: NetworkImage(
-                                    eachProductsRecord.product_mainImage!,
-                                  ),
+                                      eachProductsRecord.product_mainImage!),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Container(
                               padding: EdgeInsets.only(left: 10, right: 5),
                               child: Column(
@@ -431,11 +445,18 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "\I\D\R\. ${eachProductsRecord.product_price}",
+                                        "\I\D\R\. " +
+                                            NumberFormat.currency(
+                                              locale: 'id_ID',
+                                              symbol: '',
+                                              decimalDigits: 0,
+                                            ).format(eachProductsRecord
+                                                .product_price),
                                         maxLines: 1,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 14,
                                           color: Colors.deepOrange.shade900,
                                         ),
                                       ),
@@ -445,16 +466,18 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
                                     eachProductsRecord.product_name!,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14,
                                     ),
                                     maxLines: 1,
                                   ),
                                   Text(
                                     eachProductsRecord.product_description!,
                                     style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                    ),
+                                        fontSize: 12,
+                                        color: Colors.grey[600],
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w100),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
@@ -473,26 +496,34 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
         } else {
           return Center(
             child: Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: EdgeInsets.only(top: 200),
               width: double.infinity,
               child: Column(
                 children: [
                   Image.asset(
-                    "assets/content/dissatisfied.png",
+                    "assets/content/surprised.png",
                     width: 120.0,
                     height: 120.0,
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "nothing found, try\nsomething else",
+                    "Connection problem!",
                     style: TextStyle(
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontFamily: "Poppins",
+                      fontSize: 18,
                     ),
                     textAlign: TextAlign.center,
                   ),
+                  Text(
+                    "No data product",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontFamily: "Poppins",
+                    ),
+                    textAlign: TextAlign.center,
+                  )
                 ],
               ),
             ),
@@ -502,5 +533,4 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
     );
   }
   /* Widget otherProducts end*/
-
 }

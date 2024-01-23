@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import '../../../../model/favoriteProduct.dart';
 import '../../../../model/products.dart';
@@ -56,7 +57,7 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
       appBar: AppBar(
         title: const Text(
           ' Favorite',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          style: TextStyle(fontWeight: FontWeight.w400, fontFamily: "Poppins"),
         ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -198,7 +199,7 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
                                                   "${eachFavoriteProductRecord.product_name}",
                                                   style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 16,
+                                                    fontSize: 14,
                                                     fontFamily: 'Poppins',
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -215,19 +216,25 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
                                                     fontSize: 12,
                                                     fontFamily: 'Poppins',
                                                   ),
-                                                  maxLines:
-                                                      2,
+                                                  maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),
                                                 // product description end
                                                 // Price
                                                 Text(
-                                                  "\I\D\R\. ${eachFavoriteProductRecord.product_price}",
+                                                  "\I\D\R\. " +
+                                                      NumberFormat.currency(
+                                                        locale: 'id_ID',
+                                                        symbol: '',
+                                                        decimalDigits: 0,
+                                                      ).format(
+                                                          eachFavoriteProductRecord
+                                                              .product_price),
                                                   style: TextStyle(
                                                     color: Colors
                                                         .deepOrange.shade900,
-                                                    fontSize: 18,
+                                                    fontSize: 14,
                                                     fontFamily: 'Poppins',
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -268,16 +275,17 @@ class FavoriteProductView extends GetView<FavoriteProductController> {
                         Text(
                           "Oooooppppsssss!",
                           style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Poppins",
+                              fontSize: 18),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "Your favorite product is empty",
                           style: TextStyle(
                             color: Colors.grey,
+                            fontFamily: "Poppins",
                           ),
                           textAlign: TextAlign.center,
                         )

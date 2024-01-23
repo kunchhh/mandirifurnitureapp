@@ -52,7 +52,7 @@ class MyAccountView extends GetView<MyAccountController> {
               backgroundColor: Colors.white,
               elevation: 0,
               title: Text(
-                'my account',
+                'My account',
                 style: TextStyle(
                   color: Color(0xFF212121),
                   fontFamily: 'Poppins',
@@ -66,6 +66,8 @@ class MyAccountView extends GetView<MyAccountController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 5,),
+                    
+                    // info account
                     Container(
                       
                       color: Colors.white,
@@ -78,6 +80,7 @@ class MyAccountView extends GetView<MyAccountController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                
                                 Container(
                                   width: 86,
                                   height: 86,
@@ -93,6 +96,7 @@ class MyAccountView extends GetView<MyAccountController> {
                                     ),
                                   ),
                                 ),
+                              
                               ],
                             ),
                           ),
@@ -128,6 +132,7 @@ class MyAccountView extends GetView<MyAccountController> {
                         ],
                       ),
                     ),
+                   
                     SizedBox(
                       height: 5,
                     ),

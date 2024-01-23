@@ -24,6 +24,7 @@ class CheckoutController extends GetxController {
     beratC = TextEditingController(text: "$berat");
     super.onInit();
   }
+  
 
   @override
   void onClose() {
@@ -44,6 +45,9 @@ class CheckoutController extends GetxController {
   var kotaTujuanId = 0.obs;
   var hiddenButton = true.obs;
   var kurir = "".obs;
+  RxString streetAddress = "".obs;
+  RxString zipCode = "".obs;
+
   
   var selectedService = Rx<String>("");
   var selectedPrice = Rx<int>(0);  
@@ -55,9 +59,10 @@ class CheckoutController extends GetxController {
   String satuan = "gram";
 
 
-
   late TextEditingController beratC;
   
+  
+
   void ongkosKirim() async {
     Uri url = Uri.parse("https://api.rajaongkir.com/starter/cost");
     try {
@@ -137,4 +142,13 @@ class CheckoutController extends GetxController {
     }
   }
 
+
+   void updateStreetAddress(String value) {
+    streetAddress.value = value;
+  }
+
+  void updateZipCode(String value) {
+    zipCode.value = value;
+  }
 }
+

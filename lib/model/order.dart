@@ -5,6 +5,9 @@ class Order
   String? user_fullName;
   String? selectedProducts;
   String? deliverySystem;
+  double? costProduct;
+  double? costDeliverySystem;
+  double? costApp;
   double? totalAmount;
   String? status;
   String? user_province;
@@ -19,6 +22,9 @@ class Order
     this.user_fullName,
     this.selectedProducts,
     this.deliverySystem,
+    this.costProduct,
+    this.costDeliverySystem,
+    this.costApp,
     this.totalAmount,
     this.status,
     this.user_province,
@@ -34,6 +40,9 @@ class Order
         'user_fullName': user_fullName,
         'order_selectedProducts': selectedProducts,
         'order_deliverySystem': deliverySystem,
+        'order_costProduct': costProduct!.toStringAsFixed(0),
+        'order_costDeliverySystem': costProduct!.toStringAsFixed(0),
+        'order_costApp': costProduct!.toStringAsFixed(0),
         'order_totalAmount': totalAmount!.toStringAsFixed(0),
         'order_status': status,
         'user_province' : user_province,
@@ -50,6 +59,9 @@ class Order
     selectedProducts: json['order_selectedProducts'] ,
     deliverySystem: json['order_deliverySystem'] ,
     totalAmount: double.parse(json['order_totalAmount']),
+    costProduct: double.parse(json['order_costProduct']),
+    costDeliverySystem: double.parse(json['order_costDeliverySystem']),
+    costApp: double.parse(json['order_costApp']),
     status: json['order_status'] ,
     user_province: json['user_province'] ,
     user_city: json['user_city'] ,

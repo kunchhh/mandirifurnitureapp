@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import 'package:http/http.dart' as http;
-
 
 import '../../../../model/products.dart';
 import '../../../widgets/Shimmer.dart';
@@ -21,24 +21,33 @@ class _deskScreenState extends State<deskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: Text("Desk category", style: TextStyle(fontWeight: FontWeight.bold,),),
+        title: Text(
+          "Desk category",
+          style:
+                TextStyle(fontWeight: FontWeight.w400, fontFamily: "Poppins"),
+        ),
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(13.0),
-          child: Column(
-            children: [
-              otherProducts(context)
-            ],
+        child: Container(
+          constraints: BoxConstraints(minHeight: 690),
+          margin: EdgeInsets.only(top: 5),
+          color: Colors.white,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(13.0),
+            child: Column(
+              children: [otherProducts(context)],
+            ),
           ),
         ),
       ),
     );
   }
 
-      /* List product sofa categories */
+  /* List product desk categories */
   Future<List<Products>> deskCategories() async {
     List<Products> allDeskCategories = [];
 
@@ -63,9 +72,9 @@ class _deskScreenState extends State<deskScreen> {
 
     return allDeskCategories;
   }
-  /* List product sofa categoriest end */
+  /* List product desk categoriest end */
 
-    /* Widget otherProducts*/
+  /* Widget otherProducts*/
   Widget otherProducts(context) {
     return FutureBuilder(
       future: deskCategories(),
@@ -86,7 +95,7 @@ class _deskScreenState extends State<deskScreen> {
         if (dataSnapShot.data == null) {
           return Center(
             child: Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: EdgeInsets.only(top: 200),
               width: double.infinity,
               child: Column(
                 children: [
@@ -99,10 +108,10 @@ class _deskScreenState extends State<deskScreen> {
                   SizedBox(height: 20),
                   Text(
                     "No product found!",
-                    style: TextStyle(
+                     style: TextStyle(
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 18,
+                      fontFamily: "Poppins"
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -113,46 +122,47 @@ class _deskScreenState extends State<deskScreen> {
         }
         if (dataSnapShot.data!.length > 0) {
           return Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 0, right: 0),
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisExtent: MediaQuery.of(context).size.height * 0.37,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10),
+                  mainAxisExtent: MediaQuery.of(context).size.height * 0.35,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 0),
               itemCount: dataSnapShot.data!.length,
               itemBuilder: (context, index) {
                 Products eachProductsRecord = dataSnapShot.data![index];
                 return GestureDetector(
                   onTap: () {
-                    Get.to(() => ProductDetailView(
-                          productInfo: eachProductsRecord,
-                        ));
+                    Get.to(() =>
+                        ProductDetailView(productInfo: eachProductsRecord));
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: Card(
                       child: Container(
                         color: Colors.white,
-                        width: 150,
+                        width: 165,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              height: 180,
+                              height: 170,
+                              width: 250,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
                                   image: NetworkImage(
-                                    eachProductsRecord.product_mainImage!,
-                                  ),
+                                      eachProductsRecord.product_mainImage!),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Container(
                               padding: EdgeInsets.only(left: 10, right: 5),
                               child: Column(
@@ -162,12 +172,19 @@ class _deskScreenState extends State<deskScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "\I\D\R\. ${eachProductsRecord.product_price}",
+                                     Text(
+                                              "\I\D\R\. " +
+                                                  NumberFormat.currency(
+                                                    locale: 'id_ID',
+                                                    symbol: '',
+                                                    decimalDigits: 0,
+                                                  ).format(eachProductsRecord
+                                                      .product_price),
                                         maxLines: 1,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16,
+                                          fontFamily: 'Poppins',
+                                          fontSize: 14,
                                           color: Colors.deepOrange.shade900,
                                         ),
                                       ),
@@ -177,16 +194,18 @@ class _deskScreenState extends State<deskScreen> {
                                     eachProductsRecord.product_name!,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 14,
                                     ),
                                     maxLines: 1,
                                   ),
                                   Text(
                                     eachProductsRecord.product_description!,
                                     style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                    ),
+                                        fontSize: 12,
+                                        color: Colors.grey[600],
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w100),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
@@ -205,26 +224,34 @@ class _deskScreenState extends State<deskScreen> {
         } else {
           return Center(
             child: Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: EdgeInsets.only(top: 200),
               width: double.infinity,
               child: Column(
                 children: [
                   Image.asset(
-                    "assets/content/dissatisfied.png",
+                    "assets/content/surprised.png",
                     width: 120.0,
                     height: 120.0,
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "nothing found, try\nsomething else",
-                    style: TextStyle(
+                    "Ooooppppssss!",
+                     style: TextStyle(
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 18,
+                      fontFamily: "Poppins"
                     ),
                     textAlign: TextAlign.center,
                   ),
+                  Text(
+                    "Empty, no data product",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontFamily: "Poppins",
+                    ),
+                    textAlign: TextAlign.center,
+                  )
                 ],
               ),
             ),
@@ -234,6 +261,4 @@ class _deskScreenState extends State<deskScreen> {
     );
   }
   /* Widget otherProducts end*/
-
-
 }

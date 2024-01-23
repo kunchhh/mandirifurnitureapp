@@ -11,7 +11,10 @@ import 'package:intl/intl.dart';
 class detailOrderOnProcessScreen extends StatefulWidget {
   final Order? clickedOrderInfo;
 
-  const detailOrderOnProcessScreen({super.key, this.clickedOrderInfo});
+  const detailOrderOnProcessScreen({
+    super.key,
+    this.clickedOrderInfo,
+  });
 
   @override
   State<detailOrderOnProcessScreen> createState() =>
@@ -103,10 +106,13 @@ class _detailOrderOnProcessScreenState
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Detail order"),
+        title: Text(
+          "Detail order",
+          style: TextStyle(fontFamily: "Poppins", fontWeight: FontWeight.w400),
+        ),
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back_ios,
+            Icons.arrow_back,
             color: Colors.black,
           ),
           onPressed: () {
@@ -145,8 +151,8 @@ class _detailOrderOnProcessScreenState
                                     Text(
                                       "Received",
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          fontFamily: "Poppins",
                                           color: Colors.white),
                                     ),
                                     SizedBox(
@@ -175,8 +181,8 @@ class _detailOrderOnProcessScreenState
                                           ? "On Process"
                                           : "Received",
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          fontFamily: "Poppins",
                                           color: Colors.white),
                                     ),
                                     SizedBox(
@@ -221,11 +227,15 @@ class _detailOrderOnProcessScreenState
                   children: [
                     Text(
                       "Purchase date",
-                      style: TextStyle(color: Colors.grey.shade700),
+                      style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontFamily: "Poppins",
+                          fontSize: 12),
                     ),
                     Text(
                       DateFormat("dd MMMM yyyy - hh:mm a")
                           .format(widget.clickedOrderInfo!.dateTime!),
+                      style: TextStyle(fontFamily: "Poppins", fontSize: 12),
                     )
                   ],
                 ),
@@ -253,7 +263,11 @@ class _detailOrderOnProcessScreenState
                 children: [
                   Text(
                     "Shipping Information",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -262,12 +276,22 @@ class _detailOrderOnProcessScreenState
                     children: [
                       Text(
                         "Courier",
-                        style: TextStyle(color: Colors.grey.shade700),
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: "Poppins",
+                            fontSize: 12),
                       ),
                       SizedBox(
                         width: 90,
                       ),
-                      Text(widget.clickedOrderInfo!.deliverySystem!),
+                      Text(
+                        widget.clickedOrderInfo!.deliverySystem!.toUpperCase(),
+                        style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Colors.black),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -278,7 +302,10 @@ class _detailOrderOnProcessScreenState
                     children: [
                       Text(
                         "Shipment Address",
-                        style: TextStyle(color: Colors.grey.shade700),
+                        style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontFamily: "Poppins",
+                            fontSize: 12),
                       ),
                       SizedBox(
                         width: 20,
@@ -290,23 +317,30 @@ class _detailOrderOnProcessScreenState
                             Text(
                               widget.clickedOrderInfo!.user_fullName!,
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Poppins",
+                                  fontSize: 12),
                             ),
                             Text(
                               widget.clickedOrderInfo!.user_id_phoneNumber!,
+                              style: TextStyle(
+                                  fontFamily: "Poppins", fontSize: 12),
                             ),
                             Wrap(
                               crossAxisAlignment: WrapCrossAlignment.start,
                               children: [
-                                Text(widget.clickedOrderInfo!
-                                        .user_street_address! +
-                                    ", " +
-                                    widget.clickedOrderInfo!.user_city! +
-                                    ", " +
-                                    widget.clickedOrderInfo!.user_province! +
-                                    ", " +
-                                    widget.clickedOrderInfo!.user_zipcode!),
+                                Text(
+                                  widget.clickedOrderInfo!
+                                          .user_street_address! +
+                                      ", " +
+                                      widget.clickedOrderInfo!.user_city! +
+                                      ", " +
+                                      widget.clickedOrderInfo!.user_province! +
+                                      ", " +
+                                      widget.clickedOrderInfo!.user_zipcode!,
+                                  style: TextStyle(
+                                      fontFamily: "Poppins", fontSize: 12),
+                                ),
                               ],
                             ),
                           ],
@@ -317,10 +351,12 @@ class _detailOrderOnProcessScreenState
                 ],
               ),
             ),
+
             Container(
               height: 3,
               color: Colors.grey.shade100,
             ),
+
             // payment details
             Container(
               color: Colors.white,
@@ -332,8 +368,11 @@ class _detailOrderOnProcessScreenState
                   children: [
                     Text(
                       "Payment Details",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: "Poppins",
+                      ),
                     ),
                     SizedBox(
                       height: 10,
@@ -344,9 +383,94 @@ class _detailOrderOnProcessScreenState
                       children: [
                         Text(
                           "Payment Method",
-                          style: TextStyle(color: Colors.grey.shade700),
+                          style: TextStyle(
+                              color: Colors.grey.shade700,
+                              fontFamily: "Poppins",
+                              fontSize: 12),
                         ),
-                        Text("Debit/Credit Online (VISA)"),
+                        Text(
+                          "Debit/Credit Online (VISA)",
+                          style: TextStyle(fontFamily: "Poppins", fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Subtotal product",
+                          style: TextStyle(
+                              color: Colors.grey.shade700,
+                              fontFamily: "Poppins",
+                              fontSize: 12),
+                        ),
+                        Text(
+                          NumberFormat.currency(
+                            locale: 'id_ID',
+                            symbol: '',
+                            decimalDigits: 0,
+                          ).format(widget.clickedOrderInfo!.costProduct),
+                          style: TextStyle(fontFamily: "Poppins", fontSize: 12,
+                              color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Subtotal Shipment",
+                          style: TextStyle(
+                              color: Colors.grey.shade700,
+                              fontFamily: "Poppins",
+                              fontSize: 12),
+                        ),
+                        Text(
+                          NumberFormat.currency(
+                            locale: 'id_ID',
+                            symbol: '',
+                            decimalDigits: 0,
+                          ).format(widget.clickedOrderInfo!.costDeliverySystem),
+                          style: TextStyle(fontFamily: "Poppins", fontSize: 12,
+                              color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Cost app",
+                          style: TextStyle(
+                              color: Colors.grey.shade700,
+                              fontFamily: "Poppins",
+                              fontSize: 12,
+                              ),
+                        ),
+                        Text(
+                          NumberFormat.currency(
+                            locale: 'id_ID',
+                            symbol: '',
+                            decimalDigits: 0,
+                          ).format(widget.clickedOrderInfo!.costApp),
+                          style: TextStyle(fontFamily: "Poppins", fontSize: 12,
+                              color: Colors.grey.shade700,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -359,16 +483,22 @@ class _detailOrderOnProcessScreenState
                         Text(
                           "Total Amount",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Poppins",
+                              fontSize: 14),
                         ),
                         Text(
                           "\I\D\R\. " +
-                              widget.clickedOrderInfo!.totalAmount!
-                                  .toStringAsFixed(0),
+                              NumberFormat.currency(
+                                locale: 'id_ID',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(widget.clickedOrderInfo!.totalAmount),
                           style: TextStyle(
                               color: Colors.deepOrange.shade900,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                              fontFamily: "Poppins",
+                              fontSize: 14),
                         ),
                       ],
                     ),
@@ -417,7 +547,7 @@ class _detailOrderOnProcessScreenState
             ),
           ),
         ),
-        height: status != "new" ? 70 : 0, // Hide the container for "new" status
+        height: status != "new" ? 70 : 0,
         width: double.infinity,
         decoration: BoxDecoration(
           color: status == "new" ? Colors.yellow.shade700 : Colors.black,
@@ -456,14 +586,20 @@ class _detailOrderOnProcessScreenState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           // image
-                          Container(
-                            width: 130,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image:
-                                    NetworkImage(itemInfo["product_mainImage"]),
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              bottomLeft: Radius.circular(10.0),
+                            ),
+                            child: Container(
+                              width: 130,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(
+                                      itemInfo["product_mainImage"]),
+                                ),
                               ),
                             ),
                           ),
@@ -479,7 +615,11 @@ class _detailOrderOnProcessScreenState
                                   Text(
                                     itemInfo["product_name"],
                                     maxLines: 1,
-                                    style: TextStyle(fontSize: 17),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: "Poppins",
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   SizedBox(height: 5),
                                   Row(
@@ -494,8 +634,10 @@ class _detailOrderOnProcessScreenState
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                            color: Colors.grey.shade700,
-                                            fontSize: 14),
+                                          color: Colors.grey.shade700,
+                                          fontSize: 12,
+                                          fontFamily: "Poppins",
+                                        ),
                                       ),
                                       SizedBox(width: 20),
                                       Text(
@@ -503,8 +645,10 @@ class _detailOrderOnProcessScreenState
                                             itemInfo["bag_quantity"].toString(),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                            color: Colors.grey.shade700,
-                                            fontSize: 14),
+                                          color: Colors.grey.shade700,
+                                          fontSize: 12,
+                                          fontFamily: "Poppins",
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -515,20 +659,30 @@ class _detailOrderOnProcessScreenState
                                     children: [
                                       Text(
                                         "\I\D\R\. " +
-                                            itemInfo["totalAmount"].toString(),
+                                            NumberFormat.currency(
+                                              locale: 'id_ID',
+                                              symbol: '',
+                                              decimalDigits: 0,
+                                            ).format(itemInfo["totalAmount"]),
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 17,
+                                            fontSize: 14,
+                                            fontFamily: "Poppins",
                                             color: Colors.deepOrange.shade900),
                                       ),
                                       Text(
                                         itemInfo["bag_quantity"].toString() +
                                             " x " +
-                                            itemInfo["product_price"]
-                                                .toString(),
+                                            NumberFormat.currency(
+                                                    locale: 'id_ID',
+                                                    symbol: '',
+                                                    decimalDigits: 0)
+                                                .format(
+                                                    itemInfo["product_price"]),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: Colors.grey.shade700,
+                                            fontFamily: "Poppins",
                                             fontSize: 12),
                                       ),
                                     ],

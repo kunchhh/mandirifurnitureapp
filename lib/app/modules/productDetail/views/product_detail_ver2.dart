@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import 'package:lecle_flutter_carousel_pro/lecle_flutter_carousel_pro.dart';
-import 'package:mandirifurnitureapp/app/modules/productDetail/views/product_detail_ver2.dart';
+import 'package:mandirifurnitureapp/app/modules/productDetail/views/product_detail_view.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../../../../model/products.dart';
@@ -15,10 +15,10 @@ import '../../../widgets/Shimmer.dart';
 import '../controllers/product_detail_controller.dart';
 import 'package:http/http.dart' as http;
 
-class ProductDetailView extends GetView<ProductDetailController> {
+class ProductDetailVer2 extends GetView<ProductDetailController> {
   final Products productInfo;
 
-  ProductDetailView({Key? key, required this.productInfo}) : super(key: key);
+  ProductDetailVer2({Key? key, required this.productInfo}) : super(key: key);
 
   final productDetailController = Get.put(ProductDetailController());
   final currentOnlineUser = Get.put(CurrentUser());
@@ -287,7 +287,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                   return GestureDetector(
                     onTap: () {
                       Get.to(() =>
-                          ProductDetailVer2(productInfo: eachProductsRecord));
+                          ProductDetailView(productInfo: eachProductsRecord));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
