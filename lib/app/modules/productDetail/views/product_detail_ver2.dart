@@ -757,7 +757,7 @@ class ProductDetailVer2 extends GetView<ProductDetailController> {
                 } else {
                   Get.snackbar(
                     "Error",
-                    "Tidak boleh kurang dari 1",
+                    "Quantity product must be equal or greater than 1",
                     backgroundColor: Colors.grey.shade100,
                   );
                 }

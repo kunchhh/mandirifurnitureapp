@@ -747,10 +747,10 @@ class CheckoutView extends GetView<CheckoutController> {
                                                               "Poppins"),
                                                     ),
                                                     Obx(
-                                                      () => Text(
+                                                      () => Text("\I\D\R. " +
                                                         NumberFormat.currency(
                                                           locale: 'id_ID',
-                                                          symbol: 'Rp',
+                                                          symbol: '',
                                                           decimalDigits: 0,
                                                         ).format(controller
                                                             .selectedPrice
@@ -822,7 +822,7 @@ class CheckoutView extends GetView<CheckoutController> {
                                         Text(
                                           NumberFormat.currency(
                                             locale: 'id_ID',
-                                            symbol: 'Rp',
+                                            symbol: '',
                                             decimalDigits: 0,
                                           ).format(subtotalProduct),
                                           style: TextStyle(
@@ -846,7 +846,7 @@ class CheckoutView extends GetView<CheckoutController> {
                                         Obx(() => Text(
                                               NumberFormat.currency(
                                                 locale: 'id_ID',
-                                                symbol: 'Rp',
+                                                symbol: '',
                                                 decimalDigits: 0,
                                               ).format(controller
                                                   .selectedPrice.value),
@@ -856,6 +856,30 @@ class CheckoutView extends GetView<CheckoutController> {
                                                 color: Colors.grey,
                                               ),
                                             )),
+                                      ],
+                                    ),
+                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Cost app",
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        Text(
+                                          NumberFormat.currency(
+                                            locale: 'id_ID',
+                                            symbol: '',
+                                            decimalDigits: 0,
+                                          ).format(costApp),
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -870,10 +894,10 @@ class CheckoutView extends GetView<CheckoutController> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Obx(() => Text(
+                                        Obx(() => Text("\I\D\R. " +
                                               NumberFormat.currency(
                                                 locale: 'id_ID',
-                                                symbol: 'Rp',
+                                                symbol: '',
                                                 decimalDigits: 0,
                                               ).format(subtotalProduct! + controller.selectedPrice.value + costApp),
                                               maxLines: 1,

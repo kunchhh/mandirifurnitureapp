@@ -62,7 +62,7 @@ class _successScreenState extends State<successScreen> {
                   minimumSize: Size(325.0, 50.0),
                 ),
                 child: Text(
-                  'To My Orders',
+                  'To my orders',
                   style: TextStyle(
                     color: Colors.white,
                   ),

@@ -414,8 +414,10 @@ class _detailOrderOnProcessScreenState
                             symbol: '',
                             decimalDigits: 0,
                           ).format(widget.clickedOrderInfo!.costProduct),
-                          style: TextStyle(fontFamily: "Poppins", fontSize: 12,
-                              color: Colors.grey.shade700,
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 12,
+                            color: Colors.grey.shade700,
                           ),
                         ),
                       ],
@@ -440,8 +442,10 @@ class _detailOrderOnProcessScreenState
                             symbol: '',
                             decimalDigits: 0,
                           ).format(widget.clickedOrderInfo!.costDeliverySystem),
-                          style: TextStyle(fontFamily: "Poppins", fontSize: 12,
-                              color: Colors.grey.shade700,
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 12,
+                            color: Colors.grey.shade700,
                           ),
                         ),
                       ],
@@ -456,10 +460,10 @@ class _detailOrderOnProcessScreenState
                         Text(
                           "Cost app",
                           style: TextStyle(
-                              color: Colors.grey.shade700,
-                              fontFamily: "Poppins",
-                              fontSize: 12,
-                              ),
+                            color: Colors.grey.shade700,
+                            fontFamily: "Poppins",
+                            fontSize: 12,
+                          ),
                         ),
                         Text(
                           NumberFormat.currency(
@@ -467,8 +471,10 @@ class _detailOrderOnProcessScreenState
                             symbol: '',
                             decimalDigits: 0,
                           ).format(widget.clickedOrderInfo!.costApp),
-                          style: TextStyle(fontFamily: "Poppins", fontSize: 12,
-                              color: Colors.grey.shade700,
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 12,
+                            color: Colors.grey.shade700,
                           ),
                         ),
                       ],
@@ -513,6 +519,55 @@ class _detailOrderOnProcessScreenState
         ),
       ),
       bottomNavigationBar: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Visibility(
+              visible: status != "new",
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (status == "In Delivery") {
+                      showDialogForParcelConfirmation();
+                    } else {}
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: status == "Received (done)"
+                          ? Colors.green
+                          : Colors.orangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    minimumSize: Size(325.0, 50.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Order received",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "Poppins",
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Obx(
+                        () => status == "In Delivery"
+                            ? Icon(Icons.help_outline, color: Colors.redAccent)
+                            : Icon(Icons.check_circle_outline,
+                                color: Colors.greenAccent),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      /* Container(
         padding: EdgeInsets.only(right: 50, left: 60, top: 15),
         child: InkWell(
           onTap: () {
@@ -528,10 +583,10 @@ class _detailOrderOnProcessScreenState
                 SizedBox(width: 40),
                 if (status != "new")
                   Text(
-                    "Order Received",
+                    "Order received",
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontFamily: "Poppins",
                       color: Colors.white,
                     ),
                   ),
@@ -555,7 +610,7 @@ class _detailOrderOnProcessScreenState
               topLeft: Radius.elliptical(400, 80),
               topRight: Radius.elliptical(400, 80)),
         ),
-      ),
+      ), */
     );
   }
 
