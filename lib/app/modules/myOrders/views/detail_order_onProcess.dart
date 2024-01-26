@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:mandirifurnitureapp/api/apiConnection.dart';
 import 'package:http/http.dart' as http;
 import 'package:mandirifurnitureapp/app/modules/myOrders/views/history_order_screen.dart';
+import 'package:quickalert/quickalert.dart';
 import '../../../../model/order.dart';
 import 'package:intl/intl.dart';
 
@@ -32,42 +33,23 @@ class _detailOrderOnProcessScreenState
 
   showDialogForParcelConfirmation() async {
     if (widget.clickedOrderInfo!.status == "In Delivery") {
-      var response = await Get.dialog(
-        AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text(
-            "Confirmation",
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          content: const Text(
-            "Have you received your parcel?",
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: const Text(
-                "No",
-                style: TextStyle(color: Colors.redAccent),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Get.back(result: "yesConfirmed");
-              },
-              child: const Text(
-                "Yes",
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ],
-        ),
+      var response = await QuickAlert.show(
+        context: context,
+        type: QuickAlertType.confirm,
+        confirmBtnText: "Yes",
+        cancelBtnText: "No",
+        showCancelBtn: true,
+        showConfirmBtn: true,
+        onCancelBtnTap: () {
+          Get.back();
+        },
+        onConfirmBtnTap: () async {
+          await updateStatusValueInDatabase();
+          Get.back(result: "yesConfirmed");
+        },
+        confirmBtnColor: Colors.orangeAccent,
+        title: "Confirmation",
+        text: "Have you sent this order??",
       );
 
       if (response == "yesConfirmed") {
@@ -144,12 +126,12 @@ class _detailOrderOnProcessScreenState
                                 padding: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  color: Colors.yellow.shade700,
+                                  color: Colors.grey.shade400,
                                 ),
                                 child: Row(
                                   children: [
                                     Text(
-                                      "Received",
+                                      "In delivery",
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontFamily: "Poppins",
@@ -159,8 +141,8 @@ class _detailOrderOnProcessScreenState
                                       width: 5,
                                     ),
                                     Icon(
-                                      Icons.help_outline,
-                                      color: Colors.redAccent,
+                                      Icons.local_shipping_outlined,
+                                      color: Colors.white,
                                       size: 16,
                                     )
                                   ],
@@ -190,10 +172,10 @@ class _detailOrderOnProcessScreenState
                                     ),
                                     Icon(
                                       status == "new"
-                                          ? Icons.timer
+                                          ? Icons.wallet_giftcard_outlined
                                           : Icons.check_circle_outline,
                                       color: status == "new"
-                                          ? Colors.redAccent
+                                          ? Colors.white
                                           : Colors.white,
                                       size: 16,
                                     ),
@@ -526,7 +508,59 @@ class _detailOrderOnProcessScreenState
               visible: status != "new",
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
+                child: Obx(() => status == "In Delivery"
+                    ? ElevatedButton(
+                        onPressed: () {
+                          showDialogForParcelConfirmation();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.orangeAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          minimumSize: Size(325.0, 50.0),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Order received",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "Poppins",
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(Icons.help_outline, color: Colors.redAccent)
+                          ],
+                        ))
+                    : ElevatedButton(
+                        onPressed: () {
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          minimumSize: Size(325.0, 50.0),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Done received",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "Poppins",
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(Icons.check_circle_outline,
+                                color: Colors.white),
+                          ],
+                        ))),
+
+                /*  ElevatedButton(
                   onPressed: () {
                     if (status == "In Delivery") {
                       showDialogForParcelConfirmation();
@@ -560,57 +594,12 @@ class _detailOrderOnProcessScreenState
                       ),
                     ],
                   ),
-                ),
+                ), */
               ),
             ),
           ],
         ),
       ),
-
-      /* Container(
-        padding: EdgeInsets.only(right: 50, left: 60, top: 15),
-        child: InkWell(
-          onTap: () {
-            if (status == "In Delivery") {
-              showDialogForParcelConfirmation();
-            } else {}
-          },
-          borderRadius: BorderRadius.circular(30),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            child: Row(
-              children: [
-                SizedBox(width: 40),
-                if (status != "new")
-                  Text(
-                    "Order received",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: "Poppins",
-                      color: Colors.white,
-                    ),
-                  ),
-                const SizedBox(width: 8),
-                if (status != "new")
-                  Obx(
-                    () => status == "In Delivery"
-                        ? Icon(Icons.help_outline, color: Colors.redAccent)
-                        : Icon(Icons.check_circle_outline,
-                            color: Colors.greenAccent),
-                  ),
-              ],
-            ),
-          ),
-        ),
-        height: status != "new" ? 70 : 0,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: status == "new" ? Colors.yellow.shade700 : Colors.black,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.elliptical(400, 80),
-              topRight: Radius.elliptical(400, 80)),
-        ),
-      ), */
     );
   }
 
