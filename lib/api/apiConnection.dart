@@ -1,7 +1,7 @@
 class api {
 
   /* Koneksi untuk setiap folder */
-  static const hostConnect = "http://192.168.1.12/api_mandirifurniture/";
+  static const hostConnect = /* "https://mandirifurniture.000webhostapp.com/api_mandirifurniture/" */ "http://192.168.100.229/api_mandirifurniture/" ;
   static const hostConnectUser = "$hostConnect/user";
   static const hostConnectFilterProduct = "$hostConnect/filterProduct";
   static const hostBag = "$hostConnect/bag";

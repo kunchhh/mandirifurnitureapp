@@ -86,6 +86,10 @@ class _SearchAllScreenState extends State<SearchAllScreen> {
             ),
           ),
           hintText: "Search...",
+          hintStyle: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: 14,
+          ),
           suffixIcon: IconButton(
               onPressed: () {
                 searchController.clear();

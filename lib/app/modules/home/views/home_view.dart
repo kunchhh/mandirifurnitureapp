@@ -216,6 +216,10 @@ class HomeView extends GetView<HomeController> {
                                   },
                                   decoration: InputDecoration(
                                     hintText: 'Search',
+                                    hintStyle: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontSize: 14,
+                                    ),
                                     prefixIcon: IconButton(
                                         onPressed: () {
                                           Get.to(() => SearchAllScreen(

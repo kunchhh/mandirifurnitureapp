@@ -6,15 +6,13 @@ class MyTextFormField extends StatelessWidget {
   final String name;
   final dynamic prefixIcon;
   final dynamic onSaved;
- 
 
-  MyTextFormField ({
-    required this.controller, 
-    required this.name, 
-    required this.prefixIcon, 
-    required this.validator, 
-    required this.onSaved
-    });
+  MyTextFormField(
+      {required this.controller,
+      required this.name,
+      required this.prefixIcon,
+      required this.validator,
+      required this.onSaved});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +25,14 @@ class MyTextFormField extends StatelessWidget {
         filled: true,
         prefixIcon: prefixIcon,
         hintText: name,
-            hintStyle: TextStyle(
-            color: Colors.grey[700],),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+        hintStyle: TextStyle(
+          color: Colors.grey[700],
+          fontSize: 16,
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w200,
         ),
-     );
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+    );
   }
 }

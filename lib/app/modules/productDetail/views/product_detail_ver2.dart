@@ -611,7 +611,7 @@ class ProductDetailVer2 extends GetView<ProductDetailController> {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Container(
-            height: 55,
+            height: 45,
             child: ElevatedButton(
               onPressed: addProductToBag,
               style: ElevatedButton.styleFrom(
@@ -629,7 +629,7 @@ class ProductDetailVer2 extends GetView<ProductDetailController> {
                       "Add to bag",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontFamily: "Poppins"),
                     ),
                     SizedBox(width: 16),

@@ -574,46 +574,6 @@ class CheckoutView extends GetView<CheckoutController> {
                                 ),
                               ),
                             ),
-                            /* Container(
-                              color: Colors.white,
-                              width: double.infinity,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "Shipment address",
-                                      style: TextStyle(
-                                          fontFamily: "Poppins",
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "${_currentUser.user.user_fullName} (${_currentUser.user.user_id_phoneNumber})",
-                                      style: TextStyle(
-                                        fontFamily: "Poppins",
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12
-                                      ),
-                                    ),
-                                    Obx(() => Text("${controller.streetAddress.value}, ${controller.zipCode.value}",
-                                      style: TextStyle(
-                                        fontFamily: "Poppins",
-                                        fontWeight: FontWeight.w100,
-                                        color: Colors.grey,
-                                        fontSize: 12
-                                      ),))
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ), */
                             Container(
                                 color: Colors.white,
                                 width: double.infinity,
